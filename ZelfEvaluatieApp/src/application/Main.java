@@ -29,8 +29,7 @@ public class Main extends Application {
 
             Group root = new Group();
 
-            Scene scene = new Scene(root, 500, 400);
-
+			Scene scene = new Scene(root, 750, 400);
 
             BorderPane borderPane = new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane);
             borderPane.prefHeightProperty().bind(scene.heightProperty());
