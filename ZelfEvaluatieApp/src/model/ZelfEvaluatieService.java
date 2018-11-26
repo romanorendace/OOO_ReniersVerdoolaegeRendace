@@ -4,12 +4,17 @@ import controller.Controller;
 import db.CategoryManager;
 import db.QuestionManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Facade Class
-public class ZelfEvaluatieService {
+public class ZelfEvaluatieService implements Observable {
 
     private Controller categoryController;
     private Controller questionController;
     private Controller testController;
+
+    private List<Observer> observers;
 
     private CategoryManager categoryManager;
     private QuestionManager questionManager;
@@ -17,6 +22,7 @@ public class ZelfEvaluatieService {
     public ZelfEvaluatieService() {
         categoryManager = new CategoryManager();
         questionManager = new QuestionManager();
+        observers = new ArrayList<>();
     }
 
     public CategoryManager getCategoryManager() {
@@ -37,5 +43,22 @@ public class ZelfEvaluatieService {
 
     public void setTestController(Controller testController) {
         this.testController = testController;
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyOberservers(Object args) {
+        for (Observer o : observers) {
+            o.update(this, null);
+        }
     }
 }

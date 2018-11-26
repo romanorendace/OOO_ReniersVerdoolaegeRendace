@@ -12,9 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 
-public class QuestionDetailPane extends GridPane implements ViewPane {
+public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 
     private ZelfEvaluatieService service;
 	private Controller controller;
@@ -103,4 +105,9 @@ public class QuestionDetailPane extends GridPane implements ViewPane {
 		public void handle(ActionEvent e) {
 		}
 	}
+
+    @Override
+    public void update(Observable o, Object args) {
+
+    }
 }

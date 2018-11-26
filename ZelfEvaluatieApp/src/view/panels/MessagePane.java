@@ -1,7 +1,5 @@
 package view.panels;
 
-import java.util.Observer;
-
 import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,9 +13,11 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 
-public class MessagePane extends GridPane implements ViewPane {
+public class MessagePane extends GridPane implements ViewPane, Observer {
 
 	private ZelfEvaluatieService service;
 	private Controller controller;
@@ -49,5 +49,10 @@ public class MessagePane extends GridPane implements ViewPane {
 
 	public void setController(Controller controller) {
 		this.controller = controller;
+	}
+
+	@Override
+	public void update(Observable o, Object args) {
+
 	}
 }

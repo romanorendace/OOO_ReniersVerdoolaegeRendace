@@ -1,11 +1,13 @@
 package controller;
 
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 import view.panels.CategoryDetailPane;
 import view.panels.CategoryOverviewPane;
 import view.panels.ViewPane;
 
-public class CategoryController implements Controller {
+public class CategoryController implements Controller, Observer {
 
     private ZelfEvaluatieService service;
 
@@ -29,6 +31,11 @@ public class CategoryController implements Controller {
 
     @Override
     public void handleRequest(ViewPane viewPane) {
+
+    }
+
+    @Override
+    public void update(Observable o, Object args) {
 
     }
 }

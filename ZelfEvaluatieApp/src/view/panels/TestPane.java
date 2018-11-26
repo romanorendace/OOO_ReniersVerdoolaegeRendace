@@ -11,9 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 
-public class TestPane extends GridPane implements ViewPane {
+public class TestPane extends GridPane implements ViewPane, Observer {
 
 	private ZelfEvaluatieService service;
 	private Controller controller;
@@ -57,4 +59,9 @@ public class TestPane extends GridPane implements ViewPane {
 		}
 		return selected;
 	}
+
+    @Override
+    public void update(Observable o, Object args) {
+
+    }
 }

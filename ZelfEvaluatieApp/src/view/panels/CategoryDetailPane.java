@@ -9,9 +9,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 
-public class CategoryDetailPane extends GridPane implements ViewPane {
+public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 
 	private ZelfEvaluatieService service;
 	private Controller contoller;
@@ -64,4 +66,8 @@ public class CategoryDetailPane extends GridPane implements ViewPane {
 		btnCancel.setOnAction(cancelAction);
 	}
 
+	@Override
+	public void update(Observable o, Object args) {
+
+	}
 }

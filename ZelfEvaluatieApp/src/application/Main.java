@@ -48,6 +48,9 @@ public class Main extends Application {
             inititalizeModelObjects();
 
             setModelViewControllerReferences();
+            registerObserversInMVC();
+
+            
 
 
             setupView(primaryStage);
@@ -121,6 +124,17 @@ public class Main extends Application {
         zelfEvaluatieService.setCategoryController(categoryController);
         zelfEvaluatieService.setQuestionController(questionController);
         zelfEvaluatieService.setTestController(testController);
+    }
+
+    private void registerObserversInMVC() {
+        registerObserversinView();
+    }
+    private void registerObserversinView() {
+        zelfEvaluatieService.registerObserver(categoryOverviewPanel);
+        zelfEvaluatieService.registerObserver(categoryDetailPanel);
+
+        zelfEvaluatieService.registerObserver(questionOverviewPane);
+        zelfEvaluatieService.registerObserver(questionDetailPane);
     }
 
     private void setupView(Stage primaryStage) {

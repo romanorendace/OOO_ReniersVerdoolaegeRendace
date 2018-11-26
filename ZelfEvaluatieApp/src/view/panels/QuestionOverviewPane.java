@@ -11,9 +11,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.Observable;
+import model.Observer;
 import model.ZelfEvaluatieService;
 
-public class QuestionOverviewPane extends GridPane implements ViewPane {
+public class QuestionOverviewPane extends GridPane implements ViewPane, Observer {
 
 	private ZelfEvaluatieService service;
 	private Controller questionController;
@@ -58,4 +60,8 @@ public class QuestionOverviewPane extends GridPane implements ViewPane {
 		table.setOnMouseClicked(editAction);
 	}
 
+	@Override
+	public void update(Observable o, Object args) {
+
+	}
 }
