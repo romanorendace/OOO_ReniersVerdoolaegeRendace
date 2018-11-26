@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Category;
 import model.Observable;
 import model.Observer;
 import model.ZelfEvaluatieService;
@@ -18,7 +19,7 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 	private ZelfEvaluatieService service;
 	private Controller contoller;
 
-	private Button btnOK, btnCancel;
+	private Button btnSave, btnCancel;
 	private TextField titleField, descriptionField;
 	private ComboBox categoryField;
 
@@ -45,9 +46,22 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		btnCancel = new Button("Cancel");
 		this.add(btnCancel, 0, 3, 1, 1);
 
-		btnOK = new Button("Save");
-		btnOK.isDefaultButton();
-		this.add(btnOK, 1, 3, 1, 1);
+		btnSave = new Button("Save");
+		btnSave.isDefaultButton();
+		setSaveAction(new SaveCategoryHandler());
+		this.add(btnSave, 1, 3, 1, 1);
+	}
+
+	public String getTitleFieldString() {
+		return titleField.getCharacters().toString();
+	}
+
+	public String getDescriptionFieldString() {
+		return descriptionField.getCharacters().toString();
+	}
+
+	public String getCategoryFieldString() {
+		return categoryField.getValue().toString();
 	}
 
 	public void setService(ZelfEvaluatieService service) {
@@ -59,7 +73,7 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
-		btnOK.setOnAction(saveAction);
+		btnSave.setOnAction(saveAction);
 	}
 
 	public void setCancelAction(EventHandler<ActionEvent> cancelAction) {
@@ -69,5 +83,12 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 	@Override
 	public void update(Observable o, Object args) {
 
+	}
+
+	class SaveCategoryHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			contoller.handleRequest("SaveCategory");
+		}
 	}
 }

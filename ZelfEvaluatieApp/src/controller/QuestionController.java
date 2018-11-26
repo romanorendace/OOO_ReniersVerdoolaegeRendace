@@ -30,7 +30,7 @@ public class QuestionController implements Controller, Observer {
     }
 
     @Override
-    public void handleRequest(ViewPane viewPane) {
+    public void handleRequest(String action) {
 
     }
 

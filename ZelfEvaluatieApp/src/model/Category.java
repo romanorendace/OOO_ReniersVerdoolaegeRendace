@@ -44,8 +44,7 @@ public class Category implements Comparable<Category> {
         if (this == o) return true;
         if (!(o instanceof Category)) return false;
         Category category = (Category) o;
-        return Objects.equals(getTitle(), category.getTitle()) &&
-                Objects.equals(getDescription(), category.getDescription());
+        return Objects.equals(getTitle(), category.getTitle());
     }
 
     @Override

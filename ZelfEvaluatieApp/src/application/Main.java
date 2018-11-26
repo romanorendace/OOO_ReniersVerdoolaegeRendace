@@ -50,7 +50,7 @@ public class Main extends Application {
             setModelViewControllerReferences();
             registerObserversInMVC();
 
-            
+
 
 
             setupView(primaryStage);

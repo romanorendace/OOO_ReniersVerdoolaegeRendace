@@ -42,6 +42,7 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 		this.add(table, 0, 1, 2, 6);
 		
 		btnNew = new Button("New");
+		setNewAction(new NewCategoryHandler());
 		this.add(btnNew, 0, 11, 1, 1);
 	}
 
@@ -64,5 +65,12 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 	@Override
 	public void update(Observable o, Object args) {
 
+	}
+
+	class NewCategoryHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			contoller.handleRequest("ShowCategoryDetailPane");
+		}
 	}
 }
