@@ -3,6 +3,7 @@ package view.panels;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,8 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import model.ZelfEvaluatieService;
 
-public class TestPane extends GridPane {
+public class TestPane extends GridPane implements ViewPane {
+
+	private ZelfEvaluatieService service;
+	private Controller controller;
+
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
@@ -31,8 +37,16 @@ public class TestPane extends GridPane {
 
 		submitButton = new Button("Submit");
 	}
-	
-	public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
+
+    public void setService(ZelfEvaluatieService service) {
+        this.service = service;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
 		submitButton.setOnAction(processAnswerAction);
 	}
 

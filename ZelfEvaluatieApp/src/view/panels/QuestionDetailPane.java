@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,8 +12,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import model.ZelfEvaluatieService;
 
-public class QuestionDetailPane extends GridPane {
+public class QuestionDetailPane extends GridPane implements ViewPane {
+
+    private ZelfEvaluatieService service;
+	private Controller controller;
+
 	private Button btnOK, btnCancel;
 	private TextArea statementsArea;
 	private TextField questionField, statementField, feedbackField;
@@ -70,7 +76,15 @@ public class QuestionDetailPane extends GridPane {
 		
 	}
 
-	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
+    public void setService(ZelfEvaluatieService service) {
+        this.service = service;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
+    public void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnOK.setOnAction(saveAction);
 	}
 

@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -10,9 +11,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.ZelfEvaluatieService;
 
 
-public class CategoryOverviewPane extends GridPane {
+public class CategoryOverviewPane extends GridPane implements ViewPane {
+
+	private ZelfEvaluatieService service;
+	private Controller contoller;
+
 	private TableView table;
 	private Button btnNew;
 	
@@ -36,7 +42,15 @@ public class CategoryOverviewPane extends GridPane {
 		btnNew = new Button("New");
 		this.add(btnNew, 0, 11, 1, 1);
 	}
-	
+
+	public void setService(ZelfEvaluatieService service) {
+		this.service = service;
+	}
+
+	public void setContoller(Controller contoller) {
+		this.contoller = contoller;
+	}
+
 	public void setNewAction(EventHandler<ActionEvent> newAction) {
 		btnNew.setOnAction(newAction);
 	}

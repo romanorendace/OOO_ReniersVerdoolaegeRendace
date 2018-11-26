@@ -9,11 +9,11 @@ import java.util.*;
 
 public class QuestionManager {
 
-    private Map<Category, Question> questionMap;
+    private Set<Question> questionSet;
     private Reader reader;
     private Writer writer;
 
     public QuestionManager() {
-        questionMap = new LinkedHashMap<>();
+        questionSet = new LinkedHashSet<>();
     }
 }

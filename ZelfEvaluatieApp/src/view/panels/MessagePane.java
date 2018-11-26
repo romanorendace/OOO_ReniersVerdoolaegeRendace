@@ -2,6 +2,7 @@ package view.panels;
 
 import java.util.Observer;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -14,8 +15,13 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import model.ZelfEvaluatieService;
 
-public class MessagePane extends GridPane {
+public class MessagePane extends GridPane implements ViewPane {
+
+	private ZelfEvaluatieService service;
+	private Controller controller;
+
 	private Button testButton;
 	
 	public MessagePane (){
@@ -37,4 +43,11 @@ public class MessagePane extends GridPane {
 		setHalignment(testButton, HPos.CENTER);
 	}
 
+	public void setService(ZelfEvaluatieService service) {
+		this.service = service;
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
 }

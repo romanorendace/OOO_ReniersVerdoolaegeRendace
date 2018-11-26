@@ -1,5 +1,6 @@
 package view.panels;
 
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -8,9 +9,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.ZelfEvaluatieService;
 
-public class CategoryDetailPane extends GridPane {
+public class CategoryDetailPane extends GridPane implements ViewPane {
 
+	private ZelfEvaluatieService service;
+	private Controller contoller;
 
 	private Button btnOK, btnCancel;
 	private TextField titleField, descriptionField;
@@ -42,6 +46,14 @@ public class CategoryDetailPane extends GridPane {
 		btnOK = new Button("Save");
 		btnOK.isDefaultButton();
 		this.add(btnOK, 1, 3, 1, 1);
+	}
+
+	public void setService(ZelfEvaluatieService service) {
+		this.service = service;
+	}
+
+	public void setContoller(Controller contoller) {
+		this.contoller = contoller;
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {

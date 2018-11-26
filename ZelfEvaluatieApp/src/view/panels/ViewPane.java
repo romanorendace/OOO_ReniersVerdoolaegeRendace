@@ -1,4 +1,4 @@
 package view.panels;
 
-public class ViewPane {
+public interface ViewPane {
 }

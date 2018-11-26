@@ -1,6 +1,9 @@
 package model;
 
-public class Category {
+import java.util.Comparator;
+import java.util.Objects;
+
+public class Category implements Comparable<Category> {
     private String title;
     private String description;
     private Category mainCategory;
@@ -33,5 +36,25 @@ public class Category {
 
     private void setMainCategory(Category mainCategory) {
         this.mainCategory = mainCategory;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category = (Category) o;
+        return Objects.equals(getTitle(), category.getTitle()) &&
+                Objects.equals(getDescription(), category.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle(), getDescription());
+    }
+
+    @Override
+    public int compareTo(Category other) {
+        return this.title.compareTo(other.getTitle());
     }
 }
