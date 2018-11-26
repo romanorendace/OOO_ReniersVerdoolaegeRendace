@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Category implements Comparable<Category> {
+public class Category implements Comparable<Category>, Serializable {
     private String title;
     private String description;
     private Category mainCategory;
