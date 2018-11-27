@@ -11,7 +11,7 @@ public class Question implements Comparable<Question> {
     private List<String> statements;
     private String feedback;
 
-    public Question(String question, Category category, List<String> statements, String feedback) {
+    public Question(String question, Category category/*, List<String> statements*/, String feedback) {
         setQuestion(question);
         setCategory(category);
         setStatements(statements);
