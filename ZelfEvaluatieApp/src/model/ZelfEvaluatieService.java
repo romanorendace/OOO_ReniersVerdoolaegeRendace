@@ -69,4 +69,6 @@ public class ZelfEvaluatieService implements Observable {
     public void saveNewCategory(Category category) {
         categoryManager.saveNewCategory(category);
     }
+
+    public void saveNewQuestion(Question question) {questionManager.saveNewQuestion(question);}
 }

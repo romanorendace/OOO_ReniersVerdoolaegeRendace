@@ -111,6 +111,8 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
         return statementField.getCharacters().toString();
     }
 
+    public String getFeedbackField(){return feedbackField.getCharacters().toString();}
+
     class AddStatementListener implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {

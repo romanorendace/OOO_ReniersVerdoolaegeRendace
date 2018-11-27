@@ -16,4 +16,8 @@ public class QuestionManager {
     public QuestionManager() {
         questionSet = new LinkedHashSet<>();
     }
+    public  void saveNewQuestion(Question q){
+        questionSet.add(q);
+        //notify observers
+    }
 }

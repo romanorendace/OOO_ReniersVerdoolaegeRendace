@@ -1,5 +1,6 @@
 package controller;
 
+import db.CategoryManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -7,15 +8,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Observable;
-import model.Observer;
-import model.ZelfEvaluatieService;
+import model.*;
 import view.panels.QuestionDetailPane;
 import view.panels.QuestionOverviewPane;
 import view.panels.ViewPane;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class QuestionController implements Controller, Observer {
@@ -62,11 +62,29 @@ public class QuestionController implements Controller, Observer {
                 updateStatementsListView(statement);
             }
         }
+        /*else if (action.equals(("RemoveStatement"))){
+            String statement = questionDetailPane.get
+            statements.remove()
+        }*/
         else if (action.equals("SaveQuestion")) {
-            String question = questionDetailPane.getQuestionFieldString();
-            String categoryString = questionDetailPane.
+            saveQuestion();
         }
+        else if (action.equals("CancelQuestion")){ stage.close(); }
     }
+
+    private void saveQuestion() {
+        String questionString = questionDetailPane.getQuestionFieldString();
+        String categoryString = questionDetailPane.getCategoryFieldString();
+        String feedbackString = questionDetailPane.getFeedbackField();
+        Category category = service.getCategory(categoryString);
+        List<String> statementsList = new ArrayList(statements);
+        Question question = new Question(questionString,category,statementsList,feedbackString);
+        service.saveNewQuestion(question);
+        stage.close();
+
+
+    }
+
 
     private void showQuestionDetailPane() {
         root = new Group();
