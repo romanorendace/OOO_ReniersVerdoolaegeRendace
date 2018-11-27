@@ -1,5 +1,10 @@
 package controller;
 
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.Observable;
 import model.Observer;
 import model.ZelfEvaluatieService;
@@ -13,6 +18,11 @@ public class TestController implements Controller, Observer {
 
     private ViewPane testPane;
     private ViewPane messagePane;
+
+    private Group root;
+    private Scene scene;
+    private BorderPane borderPane;
+    private Stage stage;
 
     public TestController() {
     }
@@ -31,11 +41,27 @@ public class TestController implements Controller, Observer {
 
     @Override
     public void handleRequest(String action) {
+        if (action.equals("ShowTestPane")) {
+            showTestPane();
+        }
 
+    }
+
+    private void showTestPane() {
+        root = new Group();
+        stage = new Stage();
+        scene = new Scene(root, 750, 400);
+        borderPane = new BorderPane((Node) testPane);
+
+        root.getChildren().add(borderPane);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
     }
 
     @Override
     public void update(Observable o, Object args) {
+
 
     }
 }
