@@ -2,6 +2,7 @@ package db;
 
 
 import model.MultipleChoiceQuestion;
+import model.Question;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ import java.util.*;
 public class QuestionDB {
 
     private static QuestionDB uniqueInstance;
-    private Set<MultipleChoiceQuestion> multipleChoiceQuestionSet;
+    private Set<Question> multipleChoiceQuestionSet;
     private DBStrategy dbStrategy;
 
     private QuestionDB() {
@@ -22,6 +23,11 @@ public class QuestionDB {
             uniqueInstance = new QuestionDB();
         }
         return uniqueInstance;
+    }
+
+    public  void saveNewQuestion(Question q){
+        multipleChoiceQuestionSet.add(q);
+        //notify observers
     }
 
     public void setDbStrategy(DBStrategy dbStrategy) {

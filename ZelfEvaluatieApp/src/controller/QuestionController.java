@@ -1,17 +1,19 @@
 package controller;
 
 
+
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Observable;
-import model.Observer;
-import model.ZelfEvaluatieService;
+import model.*;
 import view.panels.QuestionDetailPane;
 import view.panels.QuestionOverviewPane;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class QuestionController implements Controller, Observer {
@@ -54,15 +56,35 @@ public class QuestionController implements Controller, Observer {
         }
         else if (action.equals("AddStatement")) {
             String statement = questionDetailPane.getStatementFieldString();
+            ObservableList statements = questionDetailPane.getStatementsListField();
             if (statements.add(statement)) {
-                updateStatementsListView(statement);
+                updateStatementsListView(statements);
             }
         }
+        /*else if (action.equals(("RemoveStatement"))){
+            String statement = questionDetailPane.get
+            statements.remove()
+        }*/
         else if (action.equals("SaveQuestion")) {
-            String question = questionDetailPane.getQuestionFieldString();
-            String categoryString = questionDetailPane.getCategoryFieldString();
+
+            saveQuestion();
         }
+        else if (action.equals("CancelQuestion")){ stage.close(); }
     }
+
+    private void saveQuestion() {
+        String questionString = questionDetailPane.getQuestionFieldString();
+        String categoryString = questionDetailPane.getCategoryFieldString();
+        String feedbackString = questionDetailPane.getFeedbackField();
+        Category category = service.getCategory(categoryString);
+        List<String> statementsList = new ArrayList(statements);
+        Question question = new MultipleChoiceQuestion(questionString,category,statementsList,feedbackString);
+        service.saveNewQuestion(question);
+        stage.close();
+
+
+    }
+
 
     private void showQuestionDetailPane() {
         root = new Group();
@@ -76,8 +98,8 @@ public class QuestionController implements Controller, Observer {
         stage.show();
     }
 
-    private void updateStatementsListView(String statement) {
-        questionDetailPane.updateStatementsInView(statement);
+    private void updateStatementsListView(ObservableList statements) {
+        questionDetailPane.updateStatementsInView(statements);
     }
 
     @Override

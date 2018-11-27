@@ -70,5 +70,7 @@ public class ZelfEvaluatieService implements Observable {
         categoryDB.saveNewCategory(category);
     }
 
-    // getObservableListOfCategories()
+
+    public void saveNewQuestion(Question question) {questionDB.saveNewQuestion(question);}
+
 }
