@@ -1,14 +1,11 @@
 package view.panels;
 
 import controller.Controller;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -16,13 +13,15 @@ import model.Observable;
 import model.Observer;
 import model.ZelfEvaluatieService;
 
+
 public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 
     private ZelfEvaluatieService service;
 	private Controller controller;
 
 	private Button btnSave, btnCancel;
-	private TextArea statementsArea;
+	//private TextArea statementsArea;
+	private ListView  statementsArea;
 	private TextField questionField, statementField, feedbackField;
 	private Button btnAdd, btnRemove;
 	private ComboBox categoryField;
@@ -44,8 +43,9 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 		add(statementField, 1, 1, 2, 1);
 
 		add(new Label("Statements: "), 0, 2, 1, 1);
-		statementsArea = new TextArea();
-		statementsArea.setPrefRowCount(5);
+		//TextArea best vervangen door listview!
+		statementsArea = new ListView();
+		//statementsArea.setPrefRowCount(5);
 		statementsArea.setEditable(false);
 		add(statementsArea, 1, 2, 2, 5);
 
@@ -103,8 +103,8 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 		btnCancel.setOnAction(cancelAction);
 	}
 
-	public void updateStatementsInView(String statement) {
-	    statementsArea.appendText(statement);
+	public void updateStatementsInView(ObservableList statements) {
+	    statementsArea.setItems(statements);
     }
 
     public String getStatementFieldString() {
@@ -112,6 +112,8 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     }
 
     public String getFeedbackField(){return feedbackField.getCharacters().toString();}
+
+    public ObservableList getStatementsListField(){return statementsArea.getItems();}
 
     class AddStatementListener implements EventHandler<ActionEvent> {
 		@Override

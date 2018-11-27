@@ -58,8 +58,9 @@ public class QuestionController implements Controller, Observer {
         }
         else if (action.equals("AddStatement")) {
             String statement = questionDetailPane.getStatementFieldString();
+            ObservableList statements = questionDetailPane.getStatementsListField();
             if (statements.add(statement)) {
-                updateStatementsListView(statement);
+                updateStatementsListView(statements);
             }
         }
         /*else if (action.equals(("RemoveStatement"))){
@@ -98,8 +99,8 @@ public class QuestionController implements Controller, Observer {
         stage.show();
     }
 
-    private void updateStatementsListView(String statement) {
-        questionDetailPane.updateStatementsInView(statement);
+    private void updateStatementsListView(ObservableList statements) {
+        questionDetailPane.updateStatementsInView(statements);
     }
 
     @Override
