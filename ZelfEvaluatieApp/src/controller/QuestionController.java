@@ -1,9 +1,8 @@
 package controller;
 
-import db.CategoryManager;
-import javafx.collections.FXCollections;
+
+
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -11,7 +10,6 @@ import javafx.stage.Stage;
 import model.*;
 import view.panels.QuestionDetailPane;
 import view.panels.QuestionOverviewPane;
-import view.panels.ViewPane;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -68,6 +66,7 @@ public class QuestionController implements Controller, Observer {
             statements.remove()
         }*/
         else if (action.equals("SaveQuestion")) {
+
             saveQuestion();
         }
         else if (action.equals("CancelQuestion")){ stage.close(); }
@@ -79,7 +78,7 @@ public class QuestionController implements Controller, Observer {
         String feedbackString = questionDetailPane.getFeedbackField();
         Category category = service.getCategory(categoryString);
         List<String> statementsList = new ArrayList(statements);
-        Question question = new Question(questionString,category,statementsList,feedbackString);
+        Question question = new MultipleChoiceQuestion(questionString,category,statementsList,feedbackString);
         service.saveNewQuestion(question);
         stage.close();
 

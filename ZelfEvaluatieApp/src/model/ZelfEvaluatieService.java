@@ -1,8 +1,8 @@
 package model;
 
 import controller.Controller;
-import db.CategoryManager;
-import db.QuestionManager;
+import db.CategoryDB;
+import db.QuestionDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,21 +16,21 @@ public class ZelfEvaluatieService implements Observable {
 
     private List<Observer> observers;
 
-    private CategoryManager categoryManager;
-    private QuestionManager questionManager;
+    private CategoryDB categoryDB;
+    private QuestionDB questionDB;
 
     public ZelfEvaluatieService() {
-        categoryManager = new CategoryManager();
-        questionManager = new QuestionManager();
+        categoryDB = CategoryDB.getInstance();
+        questionDB = QuestionDB.getInstance();
         observers = new ArrayList<>();
     }
 
-    public CategoryManager getCategoryManager() {
-        return categoryManager;
+    public CategoryDB getCategoryDB() {
+        return categoryDB;
     }
 
-    public QuestionManager getQuestionManager() {
-        return questionManager;
+    public QuestionDB getQuestionDB() {
+        return questionDB;
     }
 
     public void setCategoryController(Controller categoryController) {
@@ -63,12 +63,14 @@ public class ZelfEvaluatieService implements Observable {
     }
 
     public Category getCategory(String title) {
-        return categoryManager.getCategory(title);
+        return categoryDB.getCategory(title);
     }
 
     public void saveNewCategory(Category category) {
-        categoryManager.saveNewCategory(category);
+        categoryDB.saveNewCategory(category);
     }
 
-    public void saveNewQuestion(Question question) {questionManager.saveNewQuestion(question);}
+
+    public void saveNewQuestion(Question question) {questionDB.saveNewQuestion(question);}
+
 }

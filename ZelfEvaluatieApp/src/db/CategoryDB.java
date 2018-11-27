@@ -3,37 +3,74 @@ package db;
 import model.Category;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.logging.FileHandler;
 
-public class CategoryManager {
+// SINGLETON
+public class CategoryDB {
 
+    private static CategoryDB uniqueInstance;
     private Set<Category> categorySet;
-    private Reader reader;
-    private Writer writer;
+    private DBStrategy dbStrategy;
 
-    public CategoryManager() {
+    private CategoryDB() {
         categorySet = new LinkedHashSet<>();
+        dbStrategy = new CategoryTextDBStrategy();
+    }
+
+    public static synchronized CategoryDB getInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new CategoryDB();
+        }
+        return uniqueInstance;
+    }
+
+    public void setDbStrategy(DBStrategy dbStrategy) {
+        this.dbStrategy = dbStrategy;
+    }
+
+    public Set<Category> getCategorySet() {
+        return categorySet;
     }
 
     public Category getCategory(String title) {
-        for (Category c : this.categorySet) {
+        for (Category c : categorySet) {
             if (c.getTitle().equals(title))
                 return c;
         }
         return null;
     }
 
-    public void saveNewCategory(Category c) {
-        //notify observers
+    public void saveNewCategory(Category category) {
+        categorySet.add(category);
+        saveCategorySetToFile();
+        //TODO
     }
+
+    private void saveCategorySetToFile() {
+
+        try (FileOutputStream fos = new FileOutputStream("testdatabase/groep.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(categorySet);
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public void loadCategorySetFromFile() {
+
+        try (FileInputStream fis = new FileInputStream("testdatabase/groep.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
+            categorySet = (LinkedHashSet) ois.readObject();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void writeFile() throws Exception {
         ObjectOutputStream oos = null;

@@ -40,6 +40,8 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
         descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
         table.getColumns().add(descriptionCol);
 		this.add(table, 0, 1, 2, 6);
+
+		populateTableWithCategories();
 		
 		btnNew = new Button("New");
 		setNewAction(new NewCategoryHandler());
@@ -72,5 +74,9 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 		public void handle(ActionEvent event) {
 			contoller.handleRequest("ShowCategoryDetailPane");
 		}
+	}
+
+	private void populateTableWithCategories() {
+		//TODO
 	}
 }

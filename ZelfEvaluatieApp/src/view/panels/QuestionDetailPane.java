@@ -34,7 +34,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
         this.setVgap(5);
         this.setHgap(5);
         
-		add(new Label("Question: "), 0, 0, 1, 1);
+		add(new Label("MultipleChoiceQuestion: "), 0, 0, 1, 1);
 		questionField = new TextField();
 		add(questionField, 1, 0, 2, 1);
 		
