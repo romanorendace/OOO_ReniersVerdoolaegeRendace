@@ -11,6 +11,7 @@ import model.ZelfEvaluatieService;
 import view.panels.AssesMainPane;
 import view.panels.CategoryDetailPane;
 import view.panels.CategoryOverviewPane;
+import db.CategoryManager;
 import view.panels.ViewPane;
 
 public class CategoryController implements Controller, Observer {
