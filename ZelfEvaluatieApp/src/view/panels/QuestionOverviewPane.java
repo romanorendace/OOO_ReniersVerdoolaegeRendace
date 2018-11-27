@@ -41,6 +41,7 @@ public class QuestionOverviewPane extends GridPane implements ViewPane, Observer
 		this.add(table, 0, 1, 2, 6);
 		
 		btnNew = new Button("New");
+		setNewAction(new NewQuestionHandler());
 		this.add(btnNew, 0, 11, 1, 1);
 	}
 
@@ -63,5 +64,12 @@ public class QuestionOverviewPane extends GridPane implements ViewPane, Observer
 	@Override
 	public void update(Observable o, Object args) {
 
+	}
+
+	class NewQuestionHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			questionController.handleRequest("ShowQuestionDetailPane");
+		}
 	}
 }

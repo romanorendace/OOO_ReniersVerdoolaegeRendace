@@ -49,6 +49,9 @@ public class CategoryController implements Controller, Observer {
         else if (action.equals("SaveCategory")) {
             saveCategory();
         }
+        else if (action.equals("cancelCategory")) {
+            cancelCategory();
+        }
     }
 
     public void showCategoryDetailPane() {
@@ -72,6 +75,13 @@ public class CategoryController implements Controller, Observer {
             service.getCategory(mainCategoryString);
         }
         Category category = new Category(title, description, mainCategory);
+
+        service.saveNewCategory(category);
+        stage.close();
+    }
+
+    public void cancelCategory() {
+        stage.close();
     }
 
     @Override

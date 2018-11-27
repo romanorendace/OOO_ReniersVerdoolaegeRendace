@@ -44,6 +44,7 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		this.add(categoryField, 1, 2, 1, 1);
 
 		btnCancel = new Button("Cancel");
+		setCancelAction(new CancelCategoryHandler());
 		this.add(btnCancel, 0, 3, 1, 1);
 
 		btnSave = new Button("Save");
@@ -89,6 +90,13 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		@Override
 		public void handle(ActionEvent event) {
 			contoller.handleRequest("SaveCategory");
+		}
+	}
+
+	class CancelCategoryHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			contoller.handleRequest("cancelCategory");
 		}
 	}
 }

@@ -21,7 +21,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     private ZelfEvaluatieService service;
 	private Controller controller;
 
-	private Button btnOK, btnCancel;
+	private Button btnSave, btnCancel;
 	private TextArea statementsArea;
 	private TextField questionField, statementField, feedbackField;
 	private Button btnAdd, btnRemove;
@@ -71,12 +71,21 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 		btnCancel.setText("Cancel");
 		add(btnCancel, 0, 11, 1, 1);
 
-		btnOK = new Button("Save");
-		btnOK.isDefaultButton();
-		btnOK.setText("Save");
-		add(btnOK, 1, 11, 2, 1);
+		btnSave = new Button("Save");
+		btnSave.isDefaultButton();
+		btnSave.setText("Save");
+		setSaveAction(new SaveQuestionHandler());
+		add(btnSave, 1, 11, 2, 1);
 		
 	}
+
+    public String getQuestionFieldString() {
+        return questionField.getCharacters().toString();
+    }
+
+    public String getCategoryFieldString() {
+        return categoryField.getValue().toString();
+    }
 
     public void setService(ZelfEvaluatieService service) {
         this.service = service;
@@ -87,16 +96,25 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     }
 
     public void setSaveAction(EventHandler<ActionEvent> saveAction) {
-		btnOK.setOnAction(saveAction);
+		btnSave.setOnAction(saveAction);
 	}
 
 	public void setCancelAction(EventHandler<ActionEvent> cancelAction) {
 		btnCancel.setOnAction(cancelAction);
 	}
 
-	class AddStatementListener implements EventHandler<ActionEvent> {
+	public void updateStatementsInView(String statement) {
+	    statementsArea.appendText(statement);
+    }
+
+    public String getStatementFieldString() {
+        return statementField.getCharacters().toString();
+    }
+
+    class AddStatementListener implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent e) {
+		    controller.handleRequest("AddStatement");
 		}
 	}
 
@@ -106,8 +124,16 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 		}
 	}
 
+	class SaveQuestionHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleRequest("SaveQuestion");
+        }
+    }
+
     @Override
     public void update(Observable o, Object args) {
 
     }
+
 }

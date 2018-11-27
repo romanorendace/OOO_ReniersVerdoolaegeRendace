@@ -61,4 +61,12 @@ public class ZelfEvaluatieService implements Observable {
             o.update(this, null);
         }
     }
+
+    public Category getCategory(String title) {
+        return categoryManager.getCategory(title);
+    }
+
+    public void saveNewCategory(Category category) {
+        categoryManager.saveNewCategory(category);
+    }
 }
