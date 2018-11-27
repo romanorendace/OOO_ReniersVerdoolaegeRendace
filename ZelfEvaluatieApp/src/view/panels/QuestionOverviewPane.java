@@ -32,7 +32,7 @@ public class QuestionOverviewPane extends GridPane implements ViewPane, Observer
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
-        TableColumn nameCol = new TableColumn<>("Question");
+        TableColumn nameCol = new TableColumn<>("MultipleChoiceQuestion");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("question"));
         table.getColumns().add(nameCol);
         TableColumn descriptionCol = new TableColumn<>("Category");

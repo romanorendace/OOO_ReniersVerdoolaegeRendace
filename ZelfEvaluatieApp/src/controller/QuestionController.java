@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableSet;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -12,9 +10,7 @@ import model.Observer;
 import model.ZelfEvaluatieService;
 import view.panels.QuestionDetailPane;
 import view.panels.QuestionOverviewPane;
-import view.panels.ViewPane;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -64,7 +60,7 @@ public class QuestionController implements Controller, Observer {
         }
         else if (action.equals("SaveQuestion")) {
             String question = questionDetailPane.getQuestionFieldString();
-            String categoryString = questionDetailPane.
+            String categoryString = questionDetailPane.getCategoryFieldString();
         }
     }
 
