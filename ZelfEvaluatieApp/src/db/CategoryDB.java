@@ -1,21 +1,27 @@
 package db;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Category;
+import model.Observable;
+import model.Observer;
 
 import java.io.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 // SINGLETON
-public class CategoryDB {
+public class CategoryDB implements Observable {
 
     private static CategoryDB uniqueInstance;
     private Set<Category> categorySet;
     private DBStrategy dbStrategy;
 
+    private List<Observer> observerList;
+
     private CategoryDB() {
         categorySet = new LinkedHashSet<>();
         dbStrategy = new CategoryTextDBStrategy();
+        observerList = new ArrayList<>();
     }
 
     public static synchronized CategoryDB getInstance() {
@@ -27,6 +33,10 @@ public class CategoryDB {
 
     public void setDbStrategy(DBStrategy dbStrategy) {
         this.dbStrategy = dbStrategy;
+    }
+
+    public void setCategorySet(Set<Category> categorySet) {
+        this.categorySet = categorySet;
     }
 
     public Set<Category> getCategorySet() {
@@ -43,76 +53,41 @@ public class CategoryDB {
 
     public void saveNewCategory(Category category) {
         categorySet.add(category);
-        saveCategorySetToFile();
-        //TODO
+        saveCategoryToStorage(category);
     }
 
-    private void saveCategorySetToFile() {
-
-        try (FileOutputStream fos = new FileOutputStream("testdatabase/groep.txt");
-            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(categorySet);
-        }
-        catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    public void loadDataInLocalMemory() {
+        dbStrategy.loadFromStorage(Collections.singleton(categorySet));
+        notifyOberservers(null);
     }
 
-    public void loadCategorySetFromFile() {
-
-        try (FileInputStream fis = new FileInputStream("testdatabase/groep.txt");
-            ObjectInputStream ois = new ObjectInputStream(fis)) {
-            categorySet = (LinkedHashSet) ois.readObject();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void saveDataToStorage() {
+        dbStrategy.saveToStorage(Collections.singleton(categorySet));
     }
 
-
-
-
-    public void writeFile() throws Exception {
-        ObjectOutputStream oos = null;
-        FileOutputStream fs = null;
-        try{
-            fs = new FileOutputStream("groep.txt");
-            oos = new ObjectOutputStream(fs);
-            oos.writeObject(categorySet);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if(oos != null){
-                oos.close();
-            }
-        }
+    private void saveCategoryToStorage(Category category) {
+        dbStrategy.saveObjectToStorage(category);
+        notifyOberservers(null);
     }
 
-    public void readFile() throws Exception {
-        ObjectInputStream objectinputstream = null;
-        try {
-            FileInputStream streamIn = new FileInputStream("groep.txt");
-            objectinputstream = new ObjectInputStream(streamIn);
-            Category c = null;
-            c = (Category) objectinputstream.readObject();
-                if(c != null){
-                    categorySet.add(c);
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if(objectinputstream != null){
-                objectinputstream.close();
-            }
-        }
+    public ObservableList<Category> getObservableListOfCategories() {
+        return FXCollections.observableArrayList(categorySet);
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observerList.add(o);
+    }
 
+    @Override
+    public void removeObserver(Observer o) {
+        observerList.remove(o);
+    }
 
-
-
-
-
-
-
+    @Override
+    public void notifyOberservers(Object args) {
+        for (Observer o : observerList) {
+            o.update(this, args);
+        }
+    }
 }

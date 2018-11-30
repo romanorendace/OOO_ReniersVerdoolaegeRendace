@@ -16,7 +16,6 @@ import model.ZelfEvaluatieService;
 
 public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 
-    private ZelfEvaluatieService service;
 	private Controller controller;
 
 	private Button btnSave, btnCancel;
@@ -85,10 +84,6 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
 
     public String getCategoryFieldString() {
         return categoryField.getValue().toString();
-    }
-
-    public void setService(ZelfEvaluatieService service) {
-        this.service = service;
     }
 
     public void setController(Controller controller) {

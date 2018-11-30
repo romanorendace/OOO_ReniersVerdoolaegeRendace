@@ -17,7 +17,6 @@ import model.ZelfEvaluatieService;
 
 public class TestPane extends GridPane implements ViewPane, Observer {
 
-	private ZelfEvaluatieService service;
 	private Controller controller;
 
 	private Label questionField;
@@ -39,10 +38,6 @@ public class TestPane extends GridPane implements ViewPane, Observer {
 
 		submitButton = new Button("Submit");
 	}
-
-    public void setService(ZelfEvaluatieService service) {
-        this.service = service;
-    }
 
     public void setController(Controller controller) {
         this.controller = controller;

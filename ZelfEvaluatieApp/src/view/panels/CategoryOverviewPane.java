@@ -1,6 +1,8 @@
 package view.panels;
 
 import controller.Controller;
+import db.CategoryDB;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.Category;
 import model.Observable;
 import model.Observer;
 import model.ZelfEvaluatieService;
@@ -18,7 +21,6 @@ import model.ZelfEvaluatieService;
 
 public class CategoryOverviewPane extends GridPane implements ViewPane, Observer {
 
-	private ZelfEvaluatieService service;
 	private Controller contoller;
 
 	private TableView table;
@@ -48,9 +50,6 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 		this.add(btnNew, 0, 11, 1, 1);
 	}
 
-	public void setService(ZelfEvaluatieService service) {
-		this.service = service;
-	}
 
 	public void setContoller(Controller contoller) {
 		this.contoller = contoller;
@@ -66,7 +65,10 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 
 	@Override
 	public void update(Observable o, Object args) {
-
+		if (o instanceof CategoryDB) {
+			ObservableList<Category> categories = ((CategoryDB) o).getObservableListOfCategories();
+			table.setItems(categories);
+		}
 	}
 
 	class NewCategoryHandler implements EventHandler<ActionEvent> {

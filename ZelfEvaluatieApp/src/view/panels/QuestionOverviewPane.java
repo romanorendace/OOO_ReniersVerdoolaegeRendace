@@ -17,7 +17,6 @@ import model.ZelfEvaluatieService;
 
 public class QuestionOverviewPane extends GridPane implements ViewPane, Observer {
 
-	private ZelfEvaluatieService service;
 	private Controller questionController;
 
 	private TableView table;
@@ -45,9 +44,6 @@ public class QuestionOverviewPane extends GridPane implements ViewPane, Observer
 		this.add(btnNew, 0, 11, 1, 1);
 	}
 
-	public void setService(ZelfEvaluatieService service) {
-		this.service = service;
-	}
 
 	public void setController(Controller controller) {
 		this.questionController = controller;

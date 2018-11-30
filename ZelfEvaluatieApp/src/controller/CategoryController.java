@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +12,8 @@ import model.Observer;
 import model.ZelfEvaluatieService;
 import view.panels.CategoryDetailPane;
 import view.panels.CategoryOverviewPane;
+
+import java.util.Set;
 
 public class CategoryController implements Controller, Observer {
 
@@ -50,6 +54,9 @@ public class CategoryController implements Controller, Observer {
         else if (action.equals("cancelCategory")) {
             cancelCategory();
         }
+        else if (action.equals("populateCategoryField")) {
+            populateCategoryField();
+        }
     }
 
     public void showCategoryDetailPane() {
@@ -67,12 +74,8 @@ public class CategoryController implements Controller, Observer {
     public void saveCategory() {
         String title = categoryDetailPane.getTitleFieldString();
         String description = categoryDetailPane.getDescriptionFieldString();
-        String mainCategoryString = categoryDetailPane.getCategoryFieldString();
-        Category mainCategory = null;
-        if (!mainCategoryString.trim().equals("")) {
-            service.getCategory(mainCategoryString);
-        }
-        Category category = new Category(title, description, mainCategory);
+        String mainCategoryTiltle = categoryDetailPane.getCategoryFieldString();
+        Category category = new Category(title, description, mainCategoryTiltle);
 
         service.saveNewCategory(category);
         stage.close();
@@ -81,6 +84,19 @@ public class CategoryController implements Controller, Observer {
     public void cancelCategory() {
         stage.close();
     }
+
+    public void populateCategoryField() {
+        ObservableList<String> categoryList = FXCollections.observableArrayList();
+        categoryList.add("None");
+
+        Set<Category> categories = service.getCategories();
+        for (Category category : categories) {
+            categoryList.add(category.getTitle());
+        }
+
+        categoryDetailPane.setCategoryField(categoryList);
+    }
+
 
     @Override
     public void update(Observable o, Object args) {

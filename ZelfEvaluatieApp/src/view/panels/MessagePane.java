@@ -19,7 +19,6 @@ import model.ZelfEvaluatieService;
 
 public class MessagePane extends GridPane implements ViewPane, Observer {
 
-	private ZelfEvaluatieService service;
 	private Controller controller;
 
 	private Button testButton;
@@ -43,9 +42,6 @@ public class MessagePane extends GridPane implements ViewPane, Observer {
 		setHalignment(testButton, HPos.CENTER);
 	}
 
-	public void setService(ZelfEvaluatieService service) {
-		this.service = service;
-	}
 
 	public void setController(Controller controller) {
 		this.controller = controller;

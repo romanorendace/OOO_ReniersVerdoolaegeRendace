@@ -1,6 +1,8 @@
 package view.panels;
 
 import controller.Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,7 +18,7 @@ import model.ZelfEvaluatieService;
 
 public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 
-	private ZelfEvaluatieService service;
+
 	private Controller contoller;
 
 	private Button btnSave, btnCancel;
@@ -41,6 +43,7 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 
 		this.add(new Label("Main Category:"), 0, 2, 1, 1);
 		categoryField = new ComboBox<>();
+
 		this.add(categoryField, 1, 2, 1, 1);
 
 		btnCancel = new Button("Cancel");
@@ -65,10 +68,6 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		return categoryField.getValue().toString();
 	}
 
-	public void setService(ZelfEvaluatieService service) {
-		this.service = service;
-	}
-
 	public void setContoller(Controller contoller) {
 		this.contoller = contoller;
 	}
@@ -81,9 +80,18 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		btnCancel.setOnAction(cancelAction);
 	}
 
+
+	private void populateCategoryField() {
+		contoller.handleRequest("populateCategoryField");
+	}
+
+	public void setCategoryField(ObservableList<String> categoryList) {
+		categoryField.setItems(categoryList);
+	}
+
 	@Override
 	public void update(Observable o, Object args) {
-
+		populateCategoryField();
 	}
 
 	class SaveCategoryHandler implements EventHandler<ActionEvent> {

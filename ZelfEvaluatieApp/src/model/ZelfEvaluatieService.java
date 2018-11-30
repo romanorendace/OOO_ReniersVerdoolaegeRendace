@@ -6,6 +6,7 @@ import db.QuestionDB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 // Facade Class
 public class ZelfEvaluatieService implements Observable {
@@ -60,10 +61,16 @@ public class ZelfEvaluatieService implements Observable {
         for (Observer o : observers) {
             o.update(this, null);
         }
+        categoryDB.notifyOberservers(args);
+        questionDB.notifyOberservers(args);
     }
 
     public Category getCategory(String title) {
         return categoryDB.getCategory(title);
+    }
+
+    public Set<Category> getCategories() {
+        return categoryDB.getCategorySet();
     }
 
     public void saveNewCategory(Category category) {
@@ -72,5 +79,10 @@ public class ZelfEvaluatieService implements Observable {
 
 
     public void saveNewQuestion(Question question) {questionDB.saveNewQuestion(question);}
+
+    public void loadDataFromStorageIntoLocalMemory() {
+        categoryDB.loadDataInLocalMemory();
+        // question
+    }
 
 }

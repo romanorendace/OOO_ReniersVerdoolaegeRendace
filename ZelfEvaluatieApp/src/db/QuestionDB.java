@@ -2,12 +2,14 @@ package db;
 
 
 import model.MultipleChoiceQuestion;
+import model.Observable;
+import model.Observer;
 import model.Question;
 
 import java.util.*;
 
 // SINGLETON
-public class QuestionDB {
+public class QuestionDB implements Observable {
 
     private static QuestionDB uniqueInstance;
     private Set<Question> multipleChoiceQuestionSet;
@@ -32,5 +34,20 @@ public class QuestionDB {
 
     public void setDbStrategy(DBStrategy dbStrategy) {
         this.dbStrategy = dbStrategy;
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+
+    }
+
+    @Override
+    public void notifyOberservers(Object args) {
+
     }
 }

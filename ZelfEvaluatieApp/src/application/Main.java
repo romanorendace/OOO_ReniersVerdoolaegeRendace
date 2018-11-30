@@ -43,12 +43,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         try {
-            initializeViewPaneObjects();
+            initializeModelObjects();
             initializeControllerObjects();
-            inititalizeModelObjects();
+            initializeViewPaneObjects();
 
             setModelViewControllerReferences();
             registerObserversInMVC();
+
+            loadDataFromStorageIntoLocalMemory();
+            firstNotificationOfObservers();
 
 
 
@@ -79,8 +82,9 @@ public class Main extends Application {
           questionController = new QuestionController();
           testController = new TestController();
     }
-    private void inititalizeModelObjects() {
+    private void initializeModelObjects() {
         zelfEvaluatieService = new ZelfEvaluatieService();
+        zelfEvaluatieService.loadDataFromStorageIntoLocalMemory();
     }
 
     private void setModelViewControllerReferences() {
@@ -89,22 +93,13 @@ public class Main extends Application {
         setMVCReferencesForModelObjects();
     }
     private void setMVCReferencesForViewObject() {
-        categoryOverviewPanel.setService(zelfEvaluatieService);
         categoryOverviewPanel.setContoller(categoryController);
-
-        categoryDetailPanel.setService(zelfEvaluatieService);
         categoryDetailPanel.setContoller(categoryController);
 
-        questionOverviewPane.setService(zelfEvaluatieService);
         questionOverviewPane.setController(questionController);
-
-        questionDetailPane.setService(zelfEvaluatieService);
         questionDetailPane.setController(questionController);
 
-        testPane.setService(zelfEvaluatieService);
         testPane.setController(testController);
-
-        messagePane.setService(zelfEvaluatieService);
         messagePane.setController(testController);
     }
     private void setMVCReferencesForControllerObjects() {
@@ -130,11 +125,19 @@ public class Main extends Application {
         registerObserversinView();
     }
     private void registerObserversinView() {
-        zelfEvaluatieService.registerObserver(categoryOverviewPanel);
-        zelfEvaluatieService.registerObserver(categoryDetailPanel);
+        zelfEvaluatieService.getCategoryDB().registerObserver(categoryOverviewPanel);
+        zelfEvaluatieService.getCategoryDB().registerObserver(categoryDetailPanel);
 
-        zelfEvaluatieService.registerObserver(questionOverviewPane);
-        zelfEvaluatieService.registerObserver(questionDetailPane);
+        zelfEvaluatieService.getQuestionDB().registerObserver(questionOverviewPane);
+        zelfEvaluatieService.getQuestionDB().registerObserver(questionDetailPane);
+    }
+
+    private void firstNotificationOfObservers() {
+        zelfEvaluatieService.notifyOberservers(null);
+    }
+
+    private void loadDataFromStorageIntoLocalMemory() {
+        zelfEvaluatieService.loadDataFromStorageIntoLocalMemory();
     }
 
     private void setupView(Stage primaryStage) {

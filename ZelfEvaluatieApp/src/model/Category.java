@@ -8,12 +8,12 @@ public class Category implements Comparable<Category>, Serializable {
 
     private String title;
     private String description;
-    private Category mainCategory;
+    private String mainCategoryTitle;
 
-    public Category(String title, String description, Category mainCategory) {
+    public Category(String title, String description, String mainCategoryTitle) {
         setTitle(title);
         setDescription(description);
-        setMainCategory(mainCategory);
+        setMainCategoryTitle(mainCategoryTitle);
     }
 
     public String getTitle() {
@@ -24,8 +24,8 @@ public class Category implements Comparable<Category>, Serializable {
         return description;
     }
 
-    public Category getMainCategory() {
-        return mainCategory;
+    public String getMainCategoryTitle() {
+        return mainCategoryTitle;
     }
 
     private void setTitle(String title) {
@@ -36,8 +36,8 @@ public class Category implements Comparable<Category>, Serializable {
         this.description = description;
     }
 
-    private void setMainCategory(Category mainCategory) {
-        this.mainCategory = mainCategory;
+    private void setMainCategoryTitle(String mainCategoryTitle) {
+        this.mainCategoryTitle = mainCategoryTitle;
     }
 
 
