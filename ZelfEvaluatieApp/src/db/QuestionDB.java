@@ -53,6 +53,10 @@ public class QuestionDB implements Observable {
         notifyObservers(null);
     }
 
+    public void loadDataInLocalMemory() {
+        dbStrategy.loadFromStorage();
+    }
+
     public ObservableList<Question> getObservableListOfQuestions() {
         return FXCollections.observableArrayList(questionSet);
     }

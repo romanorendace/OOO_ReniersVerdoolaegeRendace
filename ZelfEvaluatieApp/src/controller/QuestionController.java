@@ -2,6 +2,7 @@ package controller;
 
 
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -28,13 +29,11 @@ public class QuestionController implements Controller, Observer {
     private BorderPane borderPane;
     private Stage stage;
 
-    private Set<String> statements;
-
+    private List<String> statements;
 
 
     public QuestionController() {
-        statements = new LinkedHashSet<>();
-
+        statements = new ArrayList<>();
     }
 
     public void setService(ZelfEvaluatieService service) {
@@ -55,21 +54,18 @@ public class QuestionController implements Controller, Observer {
             showQuestionDetailPane();
         }
         else if (action.equals("AddStatement")) {
-            String statement = questionDetailPane.getStatementFieldString();
-            ObservableList statements = questionDetailPane.getStatementsListField();
-            if (statements.add(statement)) {
-                updateStatementsListView(statements);
-            }
+            addStatementToStatementsList();
         }
         /*else if (action.equals(("RemoveStatement"))){
             String statement = questionDetailPane.get
             statements.remove()
         }*/
         else if (action.equals("SaveQuestion")) {
-
             saveQuestion();
         }
-        else if (action.equals("CancelQuestion")){ stage.close(); }
+        else if (action.equals("CancelQuestion")) {
+            cancelQuestion();
+        }
     }
 
     private void saveQuestion() {
@@ -78,13 +74,17 @@ public class QuestionController implements Controller, Observer {
         String feedbackString = questionDetailPane.getFeedbackField();
         Category category = service.getCategory(categoryString);
         List<String> statementsList = new ArrayList(statements);
-        Question question = new MultipleChoiceQuestion(questionString,category,statementsList,feedbackString);
+
+        Question question = new MultipleChoiceQuestion(questionString, category, feedbackString, statementsList);
         service.saveNewQuestion(question);
         stage.close();
-
-
     }
 
+    private void cancelQuestion() {
+        resetStatementsList();
+        resetStatementsListOverview();
+        stage.close();
+    }
 
     private void showQuestionDetailPane() {
         root = new Group();
@@ -98,13 +98,42 @@ public class QuestionController implements Controller, Observer {
         stage.show();
     }
 
-    private void updateStatementsListView(ObservableList statements) {
-        questionDetailPane.updateStatementsInView(statements);
+    private void addStatementToStatementsList() {
+        String statement = questionDetailPane.getStatementFieldString();
+        if (isValidStatement(statement)) {
+            statements.add(statement);
+            updateStatementsListOverview();
+        }
+        clearStatementField();
     }
+
+    private boolean isValidStatement(String statement) {
+        return statement != null && !statement.trim().isEmpty();
+    }
+
+    private void updateStatementsListOverview() {
+        ObservableList<String> statementsObservableList = FXCollections.observableList(statements);
+        questionDetailPane.updateStatementsInView(statementsObservableList);
+    }
+
+    private void clearStatementField() {
+        questionDetailPane.clearStatementField();
+    }
+
+    private void resetStatementsList() {
+        statements = new ArrayList<>();
+    }
+
+    private void resetStatementsListOverview() {
+        updateStatementsListOverview();
+    }
+
 
     @Override
     public void update(Observable o, Object args) {
 
     }
+
+
 
 }

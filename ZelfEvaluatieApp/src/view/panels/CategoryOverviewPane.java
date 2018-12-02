@@ -35,11 +35,13 @@ public class CategoryOverviewPane extends GridPane implements ViewPane, Observer
 		
 		table = new TableView<>();
 		table.setPrefWidth(REMAINING);
+
         TableColumn nameCol = new TableColumn<>("Name");
-        nameCol.setCellValueFactory(new PropertyValueFactory("title"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         table.getColumns().add(nameCol);
+
         TableColumn descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setCellValueFactory(new PropertyValueFactory("description"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         table.getColumns().add(descriptionCol);
 		this.add(table, 0, 1, 2, 6);
 

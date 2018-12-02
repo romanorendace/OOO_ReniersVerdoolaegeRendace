@@ -127,6 +127,7 @@ public class Main extends Application {
     private void registerObserversinView() {
         zelfEvaluatieService.getCategoryDB().registerObserver(categoryOverviewPanel);
         zelfEvaluatieService.getCategoryDB().registerObserver(categoryDetailPanel);
+        zelfEvaluatieService.getCategoryDB().registerObserver(questionDetailPane);
 
         zelfEvaluatieService.getQuestionDB().registerObserver(questionOverviewPane);
         zelfEvaluatieService.getQuestionDB().registerObserver(questionDetailPane);

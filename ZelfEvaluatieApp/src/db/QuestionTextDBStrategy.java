@@ -4,10 +4,9 @@ import model.Category;
 import model.MultipleChoiceQuestion;
 import model.Question;
 import model.QuestionFactory;
-
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
+
 
 public class QuestionTextDBStrategy extends TextDBStrategy {
 
@@ -57,6 +56,7 @@ public class QuestionTextDBStrategy extends TextDBStrategy {
 
     @Override
     public void saveObjectToStorage(Object object) {
+        setupConnectionToStorage();
         if (object instanceof MultipleChoiceQuestion) {
             MultipleChoiceQuestion question = (MultipleChoiceQuestion) object;
             saveMultipleChoiceQuestionToStorage(question);

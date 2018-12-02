@@ -82,7 +82,7 @@ public class ZelfEvaluatieService implements Observable {
 
     public void loadDataFromStorageIntoLocalMemory() {
         categoryDB.loadDataInLocalMemory();
-        // question
+        questionDB.loadDataInLocalMemory();
     }
 
 }

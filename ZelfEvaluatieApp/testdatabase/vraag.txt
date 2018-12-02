@@ -1,0 +1,2 @@
+MultipleChoiceQuestion/In welk jaar werd America ontdekt?/Geschiedenis;Gebeurtenissen en hun datum;None/Het juiste antwoord is 1492/1492;1429;1249;129
+MultipleChoiceQuestion/In welk jaar eindige WO 1?/Geschiedenis;Gebeurtenissen en hun datum;None/Het juiste antwoord is 1918/1918;1919;1917;191

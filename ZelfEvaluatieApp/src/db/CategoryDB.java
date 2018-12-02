@@ -62,7 +62,6 @@ public class CategoryDB implements Observable {
 
     public void loadDataInLocalMemory() {
         dbStrategy.loadFromStorage();
-        notifyObservers(null);
     }
 
     public void saveDataToStorage() {
@@ -71,6 +70,14 @@ public class CategoryDB implements Observable {
 
     public ObservableList<Category> getObservableListOfCategories() {
         return FXCollections.observableArrayList(categorySet);
+    }
+
+    public ObservableList<String> getObservableListOfCategoryTitles() {
+        List<String> categoryTitles = new ArrayList<>();
+        for (Category c : categorySet) {
+            categoryTitles.add(c.getTitle());
+        }
+        return FXCollections.observableArrayList(categoryTitles);
     }
 
 

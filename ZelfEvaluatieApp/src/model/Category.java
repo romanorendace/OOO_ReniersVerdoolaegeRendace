@@ -58,4 +58,9 @@ public class Category implements Comparable<Category>, Serializable {
     public int compareTo(Category other) {
         return this.title.compareTo(other.getTitle());
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
