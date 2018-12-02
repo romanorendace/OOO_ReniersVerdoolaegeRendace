@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,8 +8,17 @@ public class MultipleChoiceQuestion extends Question  {
 
     private List<String> statements;
 
-    public MultipleChoiceQuestion(String question, Category category, List<String> statements, String feedback) {
+    public MultipleChoiceQuestion(String question, Category category, String feedback, List<String> statements) {
         super(question, category, feedback);
+        setStatements(statements);
+    }
+
+    public MultipleChoiceQuestion(String question, Category category, String feedback) {
+        super(question, category, feedback);
+        this.statements = new ArrayList<>();
+    }
+
+    public void setStatements(List<String> statements) {
         this.statements = statements;
     }
 

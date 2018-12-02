@@ -2,18 +2,14 @@ package db;
 
 
 import model.Category;
-
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
+
 
 public class CategoryTextDBStrategy extends TextDBStrategy {
 
     private File file;
-    private Collection<Object> data;
+    private List<Category> data;
 
     @Override
     public void setupConnectionToStorage() {
@@ -24,14 +20,16 @@ public class CategoryTextDBStrategy extends TextDBStrategy {
     public void getDataFromStorage() {
         data = new ArrayList<>();
         try (Scanner reader = new Scanner(file)) {
+
             String line;
             while (reader.hasNextLine()) {
                 line = reader.nextLine();
-                String[] fields = new String[3];
-                fields = line.trim().split("/");
-                String title = fields[0];
-                String description = fields[1];
-                String mainCategoryTitle = fields[2];
+
+                String[] instances = line.trim().split("/");
+                String title = instances[0];
+                String description = instances[1];
+                String mainCategoryTitle = instances[2];
+
                 Category category = new Category(title, description, mainCategoryTitle);
                 data.add(category);
             }
@@ -43,36 +41,35 @@ public class CategoryTextDBStrategy extends TextDBStrategy {
 
     @Override
     public void setDataInLocalMemory() {
-        setCategorySet(data);
+        if (data != null) {
+            Set<Category> categorySet = new LinkedHashSet<>(data);
+            CategoryDB categoryDB = CategoryDB.getInstance();
+            categoryDB.setCategorySet(categorySet);
+        }
     }
 
     @Override
     public void setDataToStorage() {
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
-            for (Category category : getCategorySet()) {
-
-                String title = category.getTitle();
-                String description = category.getDescription();
-                String mainCategoryTitle = category.getMainCategoryTitle();
-
-                writer.println(title + "/" + description + "/" + mainCategoryTitle);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        Set<Category> categorySet = CategoryDB.getInstance().getCategorySet();
+        for (Category category : categorySet) {
+            saveObjectToStorage(category);
         }
     }
 
     @Override
     public void saveObjectToStorage(Object object) {
-        Category category = (Category) object;
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream(file, true))) {
+        try (FileOutputStream fos = new FileOutputStream(file, true);
+             PrintWriter writer = new PrintWriter(fos)) {
 
+            Category category = (Category) object;
             String title = category.getTitle();
             String description = category.getDescription();
             String mainCategoryTitle = category.getMainCategoryTitle();
 
             writer.println(title + "/" + description + "/" + mainCategoryTitle);
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

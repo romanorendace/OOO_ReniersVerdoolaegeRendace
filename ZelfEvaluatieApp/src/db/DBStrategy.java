@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public interface DBStrategy {
 
-    void loadFromStorage(Collection<Object> objectCollection);
+    void loadFromStorage();
 
-    void saveToStorage(Collection<Object> objectCollection);
+    void saveToStorage();
 
     void saveObjectToStorage(Object object);
 }

@@ -133,7 +133,7 @@ public class Main extends Application {
     }
 
     private void firstNotificationOfObservers() {
-        zelfEvaluatieService.notifyOberservers(null);
+        zelfEvaluatieService.notifyObservers(null);
     }
 
     private void loadDataFromStorageIntoLocalMemory() {

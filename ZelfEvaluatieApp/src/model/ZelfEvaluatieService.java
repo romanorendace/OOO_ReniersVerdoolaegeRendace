@@ -57,12 +57,12 @@ public class ZelfEvaluatieService implements Observable {
     }
 
     @Override
-    public void notifyOberservers(Object args) {
+    public void notifyObservers(Object args) {
         for (Observer o : observers) {
             o.update(this, null);
         }
-        categoryDB.notifyOberservers(args);
-        questionDB.notifyOberservers(args);
+        categoryDB.notifyObservers(args);
+        questionDB.notifyObservers(args);
     }
 
     public Category getCategory(String title) {

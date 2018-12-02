@@ -1,7 +1,8 @@
 package db;
 
 
-import model.MultipleChoiceQuestion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Observable;
 import model.Observer;
 import model.Question;
@@ -12,12 +13,15 @@ import java.util.*;
 public class QuestionDB implements Observable {
 
     private static QuestionDB uniqueInstance;
-    private Set<Question> multipleChoiceQuestionSet;
+    private Set<Question> questionSet;
     private DBStrategy dbStrategy;
 
+    private List<Observer> observerList;
+
     private QuestionDB() {
-        multipleChoiceQuestionSet = new LinkedHashSet<>();
-        dbStrategy = new QuestionTextDBStrategy();
+        setQuestionSet(new LinkedHashSet<>());
+        setDbStrategy(new QuestionTextDBStrategy());
+        observerList = new ArrayList<>();
     }
 
     public static synchronized QuestionDB getInstance() {
@@ -27,27 +31,47 @@ public class QuestionDB implements Observable {
         return uniqueInstance;
     }
 
-    public  void saveNewQuestion(Question q){
-        multipleChoiceQuestionSet.add(q);
-        //notify observers
-    }
-
     public void setDbStrategy(DBStrategy dbStrategy) {
         this.dbStrategy = dbStrategy;
     }
 
+    public Set<Question> getQuestionSet() {
+        return questionSet;
+    }
+
+    public void setQuestionSet(Set<Question> questionSet) {
+        this.questionSet = questionSet;
+    }
+
+    public  void saveNewQuestion(Question question){
+        questionSet.add(question);
+        saveQuestionToStorage(question);
+    }
+
+    private void saveQuestionToStorage(Question question) {
+        dbStrategy.saveObjectToStorage(question);
+        notifyObservers(null);
+    }
+
+    public ObservableList<Question> getObservableListOfQuestions() {
+        return FXCollections.observableArrayList(questionSet);
+    }
+
+
     @Override
     public void registerObserver(Observer o) {
-
+        observerList.add(o);
     }
 
     @Override
     public void removeObserver(Observer o) {
-
+        observerList.remove(o);
     }
 
     @Override
-    public void notifyOberservers(Object args) {
-
+    public void notifyObservers(Object args) {
+        for (Observer o : observerList) {
+            o.update(this, args);
+        }
     }
 }

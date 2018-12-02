@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import model.Category;
 import model.Observable;
 import model.Observer;
-
-import java.io.*;
 import java.util.*;
 
 // SINGLETON
@@ -43,6 +41,7 @@ public class CategoryDB implements Observable {
         return categorySet;
     }
 
+
     public Category getCategory(String title) {
         for (Category c : categorySet) {
             if (c.getTitle().equals(title))
@@ -56,23 +55,24 @@ public class CategoryDB implements Observable {
         saveCategoryToStorage(category);
     }
 
+    private void saveCategoryToStorage(Category category) {
+        dbStrategy.saveObjectToStorage(category);
+        notifyObservers(null);
+    }
+
     public void loadDataInLocalMemory() {
-        dbStrategy.loadFromStorage(Collections.singleton(categorySet));
-        notifyOberservers(null);
+        dbStrategy.loadFromStorage();
+        notifyObservers(null);
     }
 
     public void saveDataToStorage() {
-        dbStrategy.saveToStorage(Collections.singleton(categorySet));
-    }
-
-    private void saveCategoryToStorage(Category category) {
-        dbStrategy.saveObjectToStorage(category);
-        notifyOberservers(null);
+        dbStrategy.saveToStorage();
     }
 
     public ObservableList<Category> getObservableListOfCategories() {
         return FXCollections.observableArrayList(categorySet);
     }
+
 
     @Override
     public void registerObserver(Observer o) {
@@ -85,7 +85,7 @@ public class CategoryDB implements Observable {
     }
 
     @Override
-    public void notifyOberservers(Object args) {
+    public void notifyObservers(Object args) {
         for (Observer o : observerList) {
             o.update(this, args);
         }
