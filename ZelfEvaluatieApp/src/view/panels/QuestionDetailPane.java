@@ -41,9 +41,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
         add(statementField, 1, 1, 2, 1);
 
         add(new Label("Statements: "), 0, 2, 1, 1);
-        //TextArea best vervangen door listview!
         statementsArea = new ListView();
-        //statementsArea.setPrefRowCount(5);
         statementsArea.setEditable(false);
         add(statementsArea, 1, 2, 2, 5);
 

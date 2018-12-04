@@ -6,6 +6,7 @@ import db.QuestionDB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 // Facade Class
@@ -85,4 +86,11 @@ public class ZelfEvaluatieService implements Observable {
         questionDB.loadDataInLocalMemory();
     }
 
+    public TestAttempt generateTestAttempt() {
+        TestAttempt test;
+        Map<Question,Boolean> questions = questionDB.getQuestionMapInRandomOrder();
+        test = new TestAttempt();
+        test.setQuestionsAndIsCorrectlyAnswered(questions);
+        return test;
+    }
 }

@@ -42,6 +42,7 @@ public class TestAttempt {
         setState(readyToStart);
     }
 
+
     public void setState(TestState state) {
         this.state = state;
     }
@@ -49,4 +50,12 @@ public class TestAttempt {
     public void setEvaluationStrategy(EvaluationStrategy evaluationStrategy) {
         this.evaluationStrategy = evaluationStrategy;
     }
+
+    public void setQuestionsAndIsCorrectlyAnswered(Map<Question, Boolean> questionsAndIsCorrectlyAnswered) {
+        this.questionsAndIsCorrectlyAnswered = questionsAndIsCorrectlyAnswered;
+    }
+
+   /* public Question getNextQuestion() {
+        return questionsAndIsCorrectlyAnswered.;
+    }*/
 }

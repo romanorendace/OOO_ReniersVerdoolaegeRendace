@@ -5,12 +5,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Observable;
-import model.Observer;
-import model.ZelfEvaluatieService;
+import model.*;
 import view.panels.MessagePane;
 import view.panels.TestPane;
 import view.panels.ViewPane;
+
+import java.util.Set;
 
 public class TestController implements Controller, Observer {
 
@@ -23,6 +23,9 @@ public class TestController implements Controller, Observer {
     private Scene scene;
     private BorderPane borderPane;
     private Stage stage;
+
+    private TestAttempt test;
+    private Set<Question> questions;
 
     public TestController() {
     }
@@ -42,10 +45,21 @@ public class TestController implements Controller, Observer {
     @Override
     public void handleRequest(String action) {
         if (action.equals("ShowTestPane")) {
+            generateTestAttempt();
             showTestPane();
         }
 
     }
+
+    private void generateTestAttempt() {
+        this.test=service.generateTestAttempt();
+
+    }
+
+   /* private Question nextQuestion(){
+
+        //Question question = test.getNextQuestion();
+    }*/
 
     private void showTestPane() {
         stage = new Stage();

@@ -39,6 +39,16 @@ public class QuestionDB implements Observable {
         return questionSet;
     }
 
+    public Map<Question,Boolean> getQuestionMapInRandomOrder(){
+        Map<Question,Boolean> questionMap = new HashMap<>();
+        List<Question> questions = new ArrayList<>(questionSet);
+        Collections.shuffle(questions);
+        for (Question question:questions) {
+            questionMap.put(question,false);
+        }
+        return questionMap;
+    }
+
     public void setQuestionSet(Set<Question> questionSet) {
         this.questionSet = questionSet;
     }
