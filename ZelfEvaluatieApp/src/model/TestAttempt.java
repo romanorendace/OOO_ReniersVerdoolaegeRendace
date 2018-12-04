@@ -7,9 +7,7 @@ import model.testStates.Ongoing;
 import model.testStates.ReadyToStart;
 import model.testStates.TestState;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TestAttempt {
 
@@ -30,6 +28,10 @@ public class TestAttempt {
     private TestState ongoing;
     private TestState completed;
     private TestState state;
+
+    private int index = 0;
+    private List<Question> possibleQuestions = new ArrayList<Question>(questionsAndIsCorrectlyAnswered.keySet());
+
 
     public TestAttempt() {
         this.questionsAndIsCorrectlyAnswered = new LinkedHashMap<>();
@@ -73,8 +75,12 @@ public class TestAttempt {
         this.questionsAndIsCorrectlyAnswered = questionsAndIsCorrectlyAnswered;
     }
 
-   /* public Question getNextQuestion() {
-        return questionsAndIsCorrectlyAnswered.;
-    }*/
-
+    public Question getNextQuestion() {
+        Question question = null;
+        if (possibleQuestions.size() > index) {
+            question = possibleQuestions.get(index);
+            index++;
+        }
+            return question;
+    }
 }

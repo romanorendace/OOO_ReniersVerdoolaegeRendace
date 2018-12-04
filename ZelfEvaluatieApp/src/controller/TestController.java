@@ -56,10 +56,10 @@ public class TestController implements Controller, Observer {
 
     }
 
-   /* private Question nextQuestion(){
-
-        //Question question = test.getNextQuestion();
-    }*/
+    public Question nextQuestion(){
+        Question question = test.getNextQuestion();
+        return question;
+    }
 
     private void showTestPane() {
         stage = new Stage();
