@@ -15,7 +15,7 @@ public class AssesMainPane extends BorderPane {
 	    
 	    FlowPane messageBox = new FlowPane(messagePane);
         	messageBox.setAlignment(Pos.CENTER);
-        Tab testTab = new Tab("Test", messageBox);
+        Tab testTab = new Tab("TestAttempt", messageBox);
         Tab categoriesTab = new Tab("Categories", categoryOverviewPanel);
         Tab questionsTab = new Tab("Questions", questionOverviewPanel);
         tabPane.getTabs().add(testTab);

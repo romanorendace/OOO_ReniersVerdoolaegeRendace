@@ -1,4 +1,4 @@
-package model.EvaluationStrategy;
+package model.evaluationStrategy;
 
 public interface EvaluationStrategy {
 

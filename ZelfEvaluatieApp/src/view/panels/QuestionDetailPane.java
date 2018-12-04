@@ -106,7 +106,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     public String getStatementFieldString() {
         return statementField.getCharacters().toString();
     }
-    
+
 
     public void clearInputFields() {
         statementField.setText("");
