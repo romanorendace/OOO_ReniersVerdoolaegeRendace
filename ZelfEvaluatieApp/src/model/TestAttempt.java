@@ -23,7 +23,7 @@ public class TestAttempt {
      */
 
     private Map<Question, Boolean> questionsAndIsCorrectlyAnswered;
-    private Map<Category, Integer> scoreMap;
+    private Map<Category, Integer> scorePerCategory;
     private EvaluationStrategy evaluationStrategy;
 
     private TestState readyToStart;
@@ -33,13 +33,33 @@ public class TestAttempt {
 
     public TestAttempt() {
         this.questionsAndIsCorrectlyAnswered = new LinkedHashMap<>();
-        this.scoreMap = new HashMap<>();
-        this.evaluationStrategy = new ScoreEvaluation();
+        this.scorePerCategory = new HashMap<>();
+        setEvaluationStrategy(new ScoreEvaluation());
 
-        this.readyToStart = new ReadyToStart();
-        this.ongoing = new Ongoing();
-        this.completed = new Completed();
+        this.readyToStart = new ReadyToStart(this);
+        this.ongoing = new Ongoing(this);
+        this.completed = new Completed(this);
         setState(readyToStart);
+    }
+
+    public TestState getReadyToStart() {
+        return readyToStart;
+    }
+
+    public TestState getOngoing() {
+        return ongoing;
+    }
+
+    public TestState getCompleted() {
+        return completed;
+    }
+
+    public Map<Question, Boolean> getQuestionsAndIsCorrectlyAnswered() {
+        return questionsAndIsCorrectlyAnswered;
+    }
+
+    public Map<Category, Integer> getScorePerCategory() {
+        return scorePerCategory;
     }
 
     public void setState(TestState state) {
@@ -48,5 +68,9 @@ public class TestAttempt {
 
     public void setEvaluationStrategy(EvaluationStrategy evaluationStrategy) {
         this.evaluationStrategy = evaluationStrategy;
+    }
+
+    public void setQuestionsAndIsCorrectlyAnswered(Map<Question, Boolean> questionsAndIsCorrectlyAnswered) {
+        this.questionsAndIsCorrectlyAnswered = questionsAndIsCorrectlyAnswered;
     }
 }
