@@ -16,8 +16,8 @@ public class TestController implements Controller, Observer {
 
     private ZelfEvaluatieService service;
 
-    private ViewPane testPane;
-    private ViewPane messagePane;
+    private TestPane testPane;
+    private MessagePane messagePane;
 
     private Group root;
     private Scene scene;
@@ -31,11 +31,11 @@ public class TestController implements Controller, Observer {
         this.service = service;
     }
 
-    public void setTestPane(ViewPane testPane) {
+    public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
     }
 
-    public void setMessagePane(ViewPane messagePane) {
+    public void setMessagePane(MessagePane messagePane) {
         this.messagePane = messagePane;
     }
 
@@ -48,10 +48,10 @@ public class TestController implements Controller, Observer {
     }
 
     private void showTestPane() {
-        root = new Group();
         stage = new Stage();
+        root = new Group();
+        borderPane = new BorderPane(testPane);
         scene = new Scene(root, 750, 400);
-        borderPane = new BorderPane((Node) testPane);
 
         root.getChildren().add(borderPane);
         stage.setScene(scene);

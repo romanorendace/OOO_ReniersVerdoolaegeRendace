@@ -104,7 +104,8 @@ public class QuestionController implements Controller, Observer {
             statements.add(statement);
             updateStatementsListOverview();
         }
-        clearStatementField();
+        clearInputFields();
+
     }
 
     private boolean isValidStatement(String statement) {
@@ -116,9 +117,10 @@ public class QuestionController implements Controller, Observer {
         questionDetailPane.updateStatementsInView(statementsObservableList);
     }
 
-    private void clearStatementField() {
-        questionDetailPane.clearStatementField();
+    private void clearInputFields() {
+        questionDetailPane.clearInputFields();
     }
+
 
     private void resetStatementsList() {
         statements = new ArrayList<>();

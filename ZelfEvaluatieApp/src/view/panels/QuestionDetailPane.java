@@ -2,7 +2,6 @@ package view.panels;
 
 import controller.Controller;
 import db.CategoryDB;
-import db.QuestionDB;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,7 +32,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
         this.setVgap(5);
         this.setHgap(5);
 
-        add(new Label("MultipleChoiceQuestion: "), 0, 0, 1, 1);
+        add(new Label("Question: "), 0, 0, 1, 1);
         questionField = new TextField();
         add(questionField, 1, 0, 2, 1);
 
@@ -107,9 +106,13 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     public String getStatementFieldString() {
         return statementField.getCharacters().toString();
     }
+    
 
-    public void clearStatementField() {
+    public void clearInputFields() {
         statementField.setText("");
+        feedbackField.setText("");
+        questionField.setText("");
+
     }
 
     public String getFeedbackField() {
@@ -119,6 +122,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
     public ObservableList getStatementsListArea() {
         return statementsArea.getItems();
     }
+
 
     class AddStatementListener implements EventHandler<ActionEvent> {
         @Override
@@ -147,6 +151,7 @@ public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
             controller.handleRequest("CancelQuestion");
         }
     }
+
 
     @Override
     public void update(Observable o, Object args) {

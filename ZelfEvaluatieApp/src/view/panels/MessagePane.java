@@ -19,36 +19,38 @@ import model.ZelfEvaluatieService;
 
 public class MessagePane extends GridPane implements ViewPane, Observer {
 
-	private Controller controller;
+    private Controller controller;
 
-	private Button testButton;
-	
-	public MessagePane (){
-	    setBorder(new Border(new BorderStroke(Color.BLACK, 
-	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    private Button testButton;
 
-		this.setPadding(new Insets(5, 5, 5, 5));
+    public MessagePane() {
+        setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+        this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
-        
-		testButton = new Button("Evaluate");
-		testButton.setOnAction(new EventHandler<ActionEvent>() { //TODO remove or generalize
-			
-			@Override
-			public void handle(ActionEvent event) {
-			}
-		});
-		add(testButton, 0,1,1,1);
-		setHalignment(testButton, HPos.CENTER);
-	}
+
+        testButton = new Button("Evaluate");
+        testButton.setOnAction(new EvaluateHandler());
+        add(testButton, 0, 1, 1, 1);
+        setHalignment(testButton, HPos.CENTER);
+    }
 
 
-	public void setController(Controller controller) {
-		this.controller = controller;
-	}
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 
-	@Override
-	public void update(Observable o, Object args) {
+    @Override
+    public void update(Observable o, Object args) {
 
-	}
+    }
+
+    class EvaluateHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleRequest("ShowTestPane");
+        }
+    }
 }
