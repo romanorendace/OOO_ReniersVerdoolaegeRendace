@@ -13,6 +13,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import model.Observable;
 import model.Observer;
+import model.Question;
 import model.ZelfEvaluatieService;
 
 public class TestPane extends GridPane implements ViewPane, Observer {
@@ -31,7 +32,12 @@ public class TestPane extends GridPane implements ViewPane, Observer {
         this.setVgap(5);
         this.setHgap(5);
 
-		questionField = new Label();
+		/*add(new Label("Question: "), 0, 0, 1, 1);
+		questionField = new TextField();
+		add(questionField, 1, 0, 2, 1);
+*/
+
+		questionField = new Label("vraag");
 		add(questionField, 0, 0, 1, 1);
 		
 		statementGroup = new ToggleGroup();

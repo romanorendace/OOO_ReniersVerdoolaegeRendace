@@ -25,7 +25,8 @@ public class TestController implements Controller, Observer {
     private Stage stage;
 
     private TestAttempt test;
-    private Set<Question> questions;
+   // private Question question;
+   // private Set<Question> questions;
 
     public TestController() {
     }
