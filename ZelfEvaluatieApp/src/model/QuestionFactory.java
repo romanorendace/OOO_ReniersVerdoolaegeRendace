@@ -2,7 +2,7 @@ package model;
 
 public class QuestionFactory {
 
-    public Question createQuesiton(String questionType, String question, Category category, String feedback) {
+    public Question createQuestion(String questionType, String question, Category category, String feedback) {
         Question newQuestion = null;
         switch (questionType) {
             case "MultipleChoiceQuestion" :

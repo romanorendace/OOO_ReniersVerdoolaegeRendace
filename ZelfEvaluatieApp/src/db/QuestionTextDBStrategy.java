@@ -107,7 +107,7 @@ public class QuestionTextDBStrategy extends TextDBStrategy {
         String feedback = instanceStrings[3];
 
         QuestionFactory factory = new QuestionFactory();
-        Question createdQuestion = factory.createQuesiton(questionType, question, category, feedback);
+        Question createdQuestion = factory.createQuestion(questionType, question, category, feedback);
 
         if (createdQuestion instanceof MultipleChoiceQuestion) {
             List<String> statements = getStatementsFromString(instanceStrings[4]);
