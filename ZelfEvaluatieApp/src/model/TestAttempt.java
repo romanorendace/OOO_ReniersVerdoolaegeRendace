@@ -29,9 +29,6 @@ public class TestAttempt {
     private TestState completed;
     private TestState state;
 
-    private int index = 0;
-    private List<Question> possibleQuestions = new ArrayList<Question>(questionsAndIsCorrectlyAnswered.keySet());
-
 
     public TestAttempt() {
         this.questionsAndIsCorrectlyAnswered = new LinkedHashMap<>();
@@ -76,11 +73,7 @@ public class TestAttempt {
     }
 
     public Question getNextQuestion() {
-        Question question = null;
-        if (possibleQuestions.size() > index) {
-            question = possibleQuestions.get(index);
-            index++;
-        }
+        Question question = questionsAndIsCorrectlyAnswered.keySet().iterator().next();
             return question;
     }
 }

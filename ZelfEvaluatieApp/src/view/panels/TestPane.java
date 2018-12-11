@@ -7,14 +7,11 @@ import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import model.Observable;
-import model.Observer;
-import model.Question;
-import model.ZelfEvaluatieService;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import model.*;
 
 public class TestPane extends GridPane implements ViewPane, Observer {
 
@@ -23,6 +20,7 @@ public class TestPane extends GridPane implements ViewPane, Observer {
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
+	private VBox vbox = new VBox();
 	
 	public TestPane (){
 		this.setPrefHeight(300);
@@ -32,17 +30,14 @@ public class TestPane extends GridPane implements ViewPane, Observer {
         this.setVgap(5);
         this.setHgap(5);
 
-		/*add(new Label("Question: "), 0, 0, 1, 1);
-		questionField = new TextField();
-		add(questionField, 1, 0, 2, 1);
-*/
+		questionField = new Label();
 
-		questionField = new Label("vraag");
-		add(questionField, 0, 0, 1, 1);
-		
 		statementGroup = new ToggleGroup();
 
 		submitButton = new Button("Submit");
+		setAction(new NextQuestionHandler());
+		submitButton.setText("Submit");
+		add(submitButton, 0, 11, 1, 1);
 	}
 
     public void setController(Controller controller) {
@@ -53,12 +48,40 @@ public class TestPane extends GridPane implements ViewPane, Observer {
 		submitButton.setOnAction(processAnswerAction);
 	}
 
+	public void setQuestionField(String question){
+		questionField=new Label(question);
+		add(questionField, 0, 0, 1, 1);
+	}
+
+	public void setStatementGroup(List statements) {
+
+
+		for (Object statement : statements) {
+			ToggleButton toggleButton = new RadioButton(statement.toString());
+			toggleButton.setToggleGroup(statementGroup);
+
+			vbox.getChildren().add(toggleButton);
+		}
+		add(vbox,0,1,1,1);
+	}
+
+	public void setAction(EventHandler<ActionEvent> nextQuestionAction) {
+		submitButton.setOnAction(nextQuestionAction);
+	}
+
 	public List<String> getSelectedStatements() {
 		 List<String> selected = new ArrayList<String>();
 		if(statementGroup.getSelectedToggle()!=null){
 			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
 		}
 		return selected;
+	}
+
+	class NextQuestionHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			controller.handleRequest("nextQuestion");
+		}
 	}
 
     @Override
