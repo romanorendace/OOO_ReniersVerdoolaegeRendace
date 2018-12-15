@@ -1,20 +1,16 @@
 package controller;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
 import view.panels.MessagePane;
 import view.panels.TestPane;
-import view.panels.ViewPane;
 
 import java.util.Set;
 
-public class TestController implements Controller, Observer {
-
-    private ZelfEvaluatieService service;
+public class TestController extends Controller implements Observer {
 
     private TestPane testPane;
     private MessagePane messagePane;
@@ -27,12 +23,6 @@ public class TestController implements Controller, Observer {
     private TestAttempt test;
     private Set<Question> questions;
 
-    public TestController() {
-    }
-
-    public void setService(ZelfEvaluatieService service) {
-        this.service = service;
-    }
 
     public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
@@ -40,6 +30,11 @@ public class TestController implements Controller, Observer {
 
     public void setMessagePane(MessagePane messagePane) {
         this.messagePane = messagePane;
+    }
+
+    @Override
+    protected Controller getController() {
+        return this;
     }
 
     @Override
@@ -52,7 +47,7 @@ public class TestController implements Controller, Observer {
     }
 
     private void generateTestAttempt() {
-        this.test=service.generateTestAttempt();
+        this.test = getService().generateTestAttempt();
 
     }
 

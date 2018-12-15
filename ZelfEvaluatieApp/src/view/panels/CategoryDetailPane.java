@@ -1,7 +1,6 @@
 package view.panels;
 
 import controller.Controller;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,15 +10,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import model.Category;
 import model.Observable;
 import model.Observer;
-import model.ZelfEvaluatieService;
 
-public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
+public class CategoryDetailPane extends GridPane implements Observer {
 
 
-	private Controller contoller;
+	private Controller controller;
 
 	private Button btnSave, btnCancel;
 	private TextField titleField, descriptionField;
@@ -68,8 +65,8 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 		return categoryField.getValue().toString();
 	}
 
-	public void setContoller(Controller contoller) {
-		this.contoller = contoller;
+	public void setController(Controller controller) {
+		this.controller = controller;
 	}
 
 	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
@@ -82,7 +79,7 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 
 
 	private void populateCategoryField() {
-		contoller.handleRequest("populateCategoryField");
+		controller.handleRequest("PopulateCategoryField");
 	}
 
 	public void setCategoryField(ObservableList<String> categoryList) {
@@ -97,14 +94,14 @@ public class CategoryDetailPane extends GridPane implements ViewPane, Observer {
 	class SaveCategoryHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			contoller.handleRequest("SaveCategory");
+			controller.handleRequest("SaveCategory");
 		}
 	}
 
 	class CancelCategoryHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			contoller.handleRequest("cancelCategory");
+			controller.handleRequest("CancelCategory");
 		}
 	}
 }

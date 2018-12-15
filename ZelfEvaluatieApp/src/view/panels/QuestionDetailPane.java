@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import model.*;
 
 
-public class QuestionDetailPane extends GridPane implements ViewPane, Observer {
+public class QuestionDetailPane extends GridPane implements Observer {
 
     private Controller controller;
 

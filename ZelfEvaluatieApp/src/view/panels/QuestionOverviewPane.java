@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.*;
 
-public class QuestionOverviewPane extends GridPane implements ViewPane, Observer {
+public class QuestionOverviewPane extends GridPane implements Observer {
 
     private Controller questionController;
 

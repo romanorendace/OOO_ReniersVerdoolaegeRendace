@@ -13,9 +13,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import model.Observable;
 import model.Observer;
-import model.ZelfEvaluatieService;
 
-public class TestPane extends GridPane implements ViewPane, Observer {
+public class TestPane extends GridPane implements Observer {
 
 	private Controller controller;
 

@@ -15,9 +15,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import model.Observable;
 import model.Observer;
-import model.ZelfEvaluatieService;
 
-public class MessagePane extends GridPane implements ViewPane, Observer {
+public class MessagePane extends GridPane implements Observer {
 
     private Controller controller;
 

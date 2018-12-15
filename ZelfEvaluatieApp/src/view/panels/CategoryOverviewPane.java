@@ -16,10 +16,9 @@ import javafx.scene.layout.GridPane;
 import model.Category;
 import model.Observable;
 import model.Observer;
-import model.ZelfEvaluatieService;
 
 
-public class CategoryOverviewPane extends GridPane implements ViewPane, Observer {
+public class CategoryOverviewPane extends GridPane implements Observer {
 
 	private Controller contoller;
 

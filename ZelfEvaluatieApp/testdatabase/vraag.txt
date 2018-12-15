@@ -3,3 +3,4 @@ MultipleChoiceQuestion/In welk jaar eindige WO 1?/Geschiedenis;Gebeurtenissen en
 MultipleChoiceQuestion/Wat is de hoofdstad van Canada?/Aardrijkskunde;Landen en hun hoofdsteden;None/Het juiste antwoord is niet Vancouver !/Ottawa;Quebec;Toronto;Vancouver;Ontario
 MultipleChoiceQuestion/Wat is de hoofdstad van Brazilië?/Aardrijkskunde;Landen en hun hoofdsteden;None/Het juiste antwoord is niet Sao Paolo !/Brasilia;Sao Paolo;Belo Horizonte;Rio de Janeir
 MultipleChoiceQuestion/In welk jaar viel de Berlijnse Muur?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1991/1989;1988;1987;1990;199
+MultipleChoiceQuestion/Welke wiskunde is ontdekt door Isaac Newton?/Fysica;Natuurkundigen en hun grootste ontdekking;None/Het juiste antwoord is niet Statistiek/Calculus;Algebra;Meetkunde;Statistiek;Topologi
