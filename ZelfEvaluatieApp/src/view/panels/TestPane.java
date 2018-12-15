@@ -2,21 +2,15 @@ package view.panels;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-<<<<<<< HEAD
-import model.Observable;
-import model.Observer;
-=======
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.*;
->>>>>>> 2d08f3f94f95ee55e6712b682bfccc9da4350a37
+
 
 public class TestPane extends GridPane implements Observer {
 
