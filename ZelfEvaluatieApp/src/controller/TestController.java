@@ -52,7 +52,7 @@ public class TestController extends Controller implements Observer {
     }
 
     private void generateTestAttempt() {
-        this.test = getController().getService().generateTestAttempt();
+        this.test = getService().generateTestAttempt();
     }
 
     private Question nextQuestion(){
