@@ -7,12 +7,16 @@ import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+<<<<<<< HEAD
 import model.Observable;
 import model.Observer;
+=======
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import model.*;
+>>>>>>> 2d08f3f94f95ee55e6712b682bfccc9da4350a37
 
 public class TestPane extends GridPane implements Observer {
 
@@ -21,6 +25,7 @@ public class TestPane extends GridPane implements Observer {
 	private Label questionField;
 	private Button submitButton;
 	private ToggleGroup statementGroup;
+	private VBox vbox = new VBox();
 	
 	public TestPane (){
 		this.setPrefHeight(300);
@@ -31,11 +36,13 @@ public class TestPane extends GridPane implements Observer {
         this.setHgap(5);
 
 		questionField = new Label();
-		add(questionField, 0, 0, 1, 1);
-		
+
 		statementGroup = new ToggleGroup();
 
 		submitButton = new Button("Submit");
+		setAction(new NextQuestionHandler());
+		submitButton.setText("Submit");
+		add(submitButton, 0, 11, 1, 1);
 	}
 
     public void setController(Controller controller) {
@@ -46,12 +53,40 @@ public class TestPane extends GridPane implements Observer {
 		submitButton.setOnAction(processAnswerAction);
 	}
 
+	public void setQuestionField(String question){
+		questionField=new Label(question);
+		add(questionField, 0, 0, 1, 1);
+	}
+
+	public void setStatementGroup(List statements) {
+
+
+		for (Object statement : statements) {
+			ToggleButton toggleButton = new RadioButton(statement.toString());
+			toggleButton.setToggleGroup(statementGroup);
+
+			vbox.getChildren().add(toggleButton);
+		}
+		add(vbox,0,1,1,1);
+	}
+
+	public void setAction(EventHandler<ActionEvent> nextQuestionAction) {
+		submitButton.setOnAction(nextQuestionAction);
+	}
+
 	public List<String> getSelectedStatements() {
 		 List<String> selected = new ArrayList<String>();
 		if(statementGroup.getSelectedToggle()!=null){
 			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
 		}
 		return selected;
+	}
+
+	class NextQuestionHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			controller.handleRequest("nextQuestion");
+		}
 	}
 
     @Override

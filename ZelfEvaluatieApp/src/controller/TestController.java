@@ -21,7 +21,8 @@ public class TestController extends Controller implements Observer {
     private Stage stage;
 
     private TestAttempt test;
-    private Set<Question> questions;
+    private Question question;
+   // private Set<Question> questions;
 
 
     public void setTestPane(TestPane testPane) {
@@ -43,20 +44,33 @@ public class TestController extends Controller implements Observer {
             generateTestAttempt();
             showTestPane();
         }
+        if(action.equals(("nextQuestion"))){
+            question = test.getNextQuestion();
+            showTestPane();
+        }
 
     }
 
     private void generateTestAttempt() {
-        this.test = getService().generateTestAttempt();
-
+        this.test = getController().getService().generateTestAttempt();
     }
 
-   /* private Question nextQuestion(){
+    private Question nextQuestion(){
+        question = test.getNextQuestion();
+        return question;
+    }
+    public void setNextQuestion(){
+        testPane.setQuestionField(nextQuestion().getQuestion());
+    }
 
-        //Question question = test.getNextQuestion();
-    }*/
+    private void setStatementsGroup(){
+        if(question instanceof MultipleChoiceQuestion)
+        testPane.setStatementGroup(((MultipleChoiceQuestion) question).getStatements());
+    }
 
     private void showTestPane() {
+        setNextQuestion();
+        setStatementsGroup();
         stage = new Stage();
         root = new Group();
         borderPane = new BorderPane(testPane);
