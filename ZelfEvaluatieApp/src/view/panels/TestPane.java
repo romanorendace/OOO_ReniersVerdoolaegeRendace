@@ -34,7 +34,7 @@ public class TestPane extends GridPane implements Observer {
 		statementGroup = new ToggleGroup();
 
 		submitButton = new Button("Submit");
-		setAction(new NextQuestionHandler());
+		setAction(new VerifyQuestionHandler());
 		submitButton.setText("Submit");
 		add(submitButton, 0, 11, 1, 1);
 	}
@@ -54,7 +54,6 @@ public class TestPane extends GridPane implements Observer {
 
 	public void setStatementGroup(List statements) {
 
-
 		for (Object statement : statements) {
 			ToggleButton toggleButton = new RadioButton(statement.toString());
 			toggleButton.setToggleGroup(statementGroup);
@@ -64,8 +63,12 @@ public class TestPane extends GridPane implements Observer {
 		add(vbox,0,1,1,1);
 	}
 
-	public void setAction(EventHandler<ActionEvent> nextQuestionAction) {
-		submitButton.setOnAction(nextQuestionAction);
+	public void setAction(EventHandler<ActionEvent> verifyQuestionAction) {
+		submitButton.setOnAction(verifyQuestionAction);
+	}
+
+	private void verifyQuestion() {
+		controller.handleRequest("verifyAnswer");
 	}
 
 	public List<String> getSelectedStatements() {
@@ -76,10 +79,12 @@ public class TestPane extends GridPane implements Observer {
 		return selected;
 	}
 
-	class NextQuestionHandler implements EventHandler<ActionEvent> {
+	public String getSelectedAnswer(){return statementGroup.getSelectedToggle().toString();}
+
+	class VerifyQuestionHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
-			controller.handleRequest("nextQuestion");
+			controller.handleRequest("verifyAnswer");
 		}
 	}
 

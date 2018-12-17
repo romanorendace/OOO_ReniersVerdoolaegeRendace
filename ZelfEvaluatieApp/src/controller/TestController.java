@@ -6,14 +6,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
 import view.panels.MessagePane;
+import view.panels.ResultPane;
 import view.panels.TestPane;
 
+import java.util.Map;
 import java.util.Set;
 
 public class TestController extends Controller implements Observer {
 
     private TestPane testPane;
     private MessagePane messagePane;
+    private ResultPane resultPane;
 
     private Group root;
     private Scene scene;
@@ -22,8 +25,8 @@ public class TestController extends Controller implements Observer {
 
     private TestAttempt test;
     private Question question;
-   // private Set<Question> questions;
 
+    int result = 0;
 
     public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
@@ -44,9 +47,23 @@ public class TestController extends Controller implements Observer {
             generateTestAttempt();
             showTestPane();
         }
-        if(action.equals(("nextQuestion"))){
+        if (action.equals("verifyAnswer")){
+            verifyAnswer();
+            stage.close();
+            nextQuestion();
+        }
+        if(action.equals("nextQuestion")) {
             question = test.getNextQuestion();
-            showTestPane();
+            if(question!=null){
+                setTestPane(new TestPane());
+                testPane.setController(this);
+                showTestPane();
+            }
+        }
+        if(action.equals("showResult")){
+            resultPane = new ResultPane();
+            resultPane.SetResultScore(result);
+            showResultPane();
         }
 
     }
@@ -55,12 +72,18 @@ public class TestController extends Controller implements Observer {
         this.test = getService().generateTestAttempt();
     }
 
-    private Question nextQuestion(){
-        question = test.getNextQuestion();
-        return question;
+    private void nextQuestion(){
+        handleRequest("nextQuestion");
     }
+
     public void setNextQuestion(){
-        testPane.setQuestionField(nextQuestion().getQuestion());
+        question = test.getNextQuestion();
+        if(question!=null) {
+            testPane.setQuestionField(question.getQuestion());
+        }
+        else{
+            calculateResult();
+        }
     }
 
     private void setStatementsGroup(){
@@ -68,12 +91,49 @@ public class TestController extends Controller implements Observer {
         testPane.setStatementGroup(((MultipleChoiceQuestion) question).getStatements());
     }
 
+    private void verifyAnswer() {
+        if(question instanceof MultipleChoiceQuestion){
+            String correctAnswer = ((MultipleChoiceQuestion) question).getStatements().get(0);
+            if(testPane.getSelectedAnswer().equals(correctAnswer)){
+                test.setVerification(question,true);
+            }
+            else{
+                test.setVerification(question,false);
+            }
+        }
+    }
+
+    private void calculateResult() {
+
+        Map map = test.getQuestionsAndIsCorrectlyAnswered();
+            for (Object value :map.values()){
+                if((Boolean)value){
+                    result++;
+                }
+            }
+            handleRequest("showResult");
+    }
+
     private void showTestPane() {
         setNextQuestion();
-        setStatementsGroup();
+        if (question != null) {
+            setStatementsGroup();
+            stage = new Stage();
+            root = new Group();
+            borderPane = new BorderPane(testPane);
+            scene = new Scene(root, 750, 400);
+
+            root.getChildren().add(borderPane);
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        }
+    }
+
+    private void showResultPane() {
         stage = new Stage();
         root = new Group();
-        borderPane = new BorderPane(testPane);
+        borderPane = new BorderPane(resultPane);
         scene = new Scene(root, 750, 400);
 
         root.getChildren().add(borderPane);

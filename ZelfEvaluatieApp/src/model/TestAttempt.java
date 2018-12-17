@@ -29,6 +29,8 @@ public class TestAttempt {
     private TestState completed;
     private TestState state;
 
+    private Iterator iterator;
+
 
     public TestAttempt() {
         this.questionsAndIsCorrectlyAnswered = new LinkedHashMap<>();
@@ -40,6 +42,7 @@ public class TestAttempt {
         this.completed = new Completed(this);
         setState(readyToStart);
     }
+
     public TestState getReadyToStart() {
         return readyToStart;
     }
@@ -70,10 +73,18 @@ public class TestAttempt {
 
     public void setQuestionsAndIsCorrectlyAnswered(Map<Question, Boolean> questionsAndIsCorrectlyAnswered) {
         this.questionsAndIsCorrectlyAnswered = questionsAndIsCorrectlyAnswered;
+        this.iterator = questionsAndIsCorrectlyAnswered.keySet().iterator();
     }
 
     public Question getNextQuestion() {
-        Question question = questionsAndIsCorrectlyAnswered.keySet().iterator().next();
+        Question question = null;
+        if(iterator.hasNext()) {
+            question = (Question)iterator.next();
+        }
             return question;
+    }
+
+    public void setVerification(Question question, boolean verification) {
+        questionsAndIsCorrectlyAnswered.replace(question, verification);
     }
 }
