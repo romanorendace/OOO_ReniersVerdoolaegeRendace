@@ -77,6 +77,7 @@ public class TestAttempt {
     }
 
     public Question getNextQuestion() {
+        System.out.println("lengte " + questionsAndIsCorrectlyAnswered.size());
         Question question = null;
         if(iterator.hasNext()) {
             question = (Question)iterator.next();

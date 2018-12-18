@@ -53,7 +53,6 @@ public class TestController extends Controller implements Observer {
             nextQuestion();
         }
         if(action.equals("nextQuestion")) {
-            question = test.getNextQuestion();
             if(question!=null){
                 setTestPane(new TestPane());
                 testPane.setController(this);
