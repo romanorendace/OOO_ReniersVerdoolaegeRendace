@@ -5,15 +5,21 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
+import view.panels.FeedbackPane;
 import view.panels.MessagePane;
+import view.panels.ResultPane;
 import view.panels.TestPane;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class TestController extends Controller implements Observer {
 
     private TestPane testPane;
+    private FeedbackPane feedbackPane;
     private MessagePane messagePane;
+    private ResultPane resultPane;
 
     private Group root;
     private Scene scene;
@@ -22,8 +28,9 @@ public class TestController extends Controller implements Observer {
 
     private TestAttempt test;
     private Question question;
-   // private Set<Question> questions;
 
+    private String result = "";
+    private String feedbackString = "";
 
     public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
@@ -44,9 +51,30 @@ public class TestController extends Controller implements Observer {
             generateTestAttempt();
             showTestPane();
         }
-        if(action.equals(("nextQuestion"))){
-            question = test.getNextQuestion();
-            showTestPane();
+        if (action.equals("verifyAnswer")){
+            verifyAnswer();
+            stage.close();
+            nextQuestion();
+        }
+        if(action.equals("nextQuestion")) {
+            if(question!=null){
+                setTestPane(new TestPane());
+                testPane.setController(this);
+                showTestPane();
+            }
+        }
+        if(action.equals("showResult")){
+            resultPane = new ResultPane();
+            resultPane.SetResult(result);
+            showResultPane();
+        }
+        if(action.equals("showFeedback")){
+            feedbackPane = new FeedbackPane();
+            feedbackPane.setFeedbackField(feedbackString);
+            showFeedbackPane();
+        }
+        if(action.equals("CloseFeedbackPane")){
+            stage.close();
         }
 
     }
@@ -55,12 +83,19 @@ public class TestController extends Controller implements Observer {
         this.test = getService().generateTestAttempt();
     }
 
-    private Question nextQuestion(){
-        question = test.getNextQuestion();
-        return question;
+    private void nextQuestion(){
+        handleRequest("nextQuestion");
     }
+
     public void setNextQuestion(){
-        testPane.setQuestionField(nextQuestion().getQuestion());
+        question = test.getNextQuestion();
+        if(question!=null) {
+            testPane.setQuestionField(question.getQuestion());
+        }
+        else{
+            calculateResult();
+            //generateFeedback();
+        }
     }
 
     private void setStatementsGroup(){
@@ -68,18 +103,107 @@ public class TestController extends Controller implements Observer {
         testPane.setStatementGroup(((MultipleChoiceQuestion) question).getStatements());
     }
 
+    private void verifyAnswer() {
+        if(question instanceof MultipleChoiceQuestion){
+            String correctAnswer = ((MultipleChoiceQuestion) question).getStatements().get(0);
+            String choice = testPane.getSelectedAnswer();
+            if(choice.equals(correctAnswer)){
+                test.setVerification(question,true);
+            }
+            else{
+                test.setVerification(question,false);
+            }
+        }
+    }
+
+    private void calculateResult() {
+        Map map = test.getQuestionsAndIsCorrectlyAnswered();
+        Map<Category, Integer> categories = new HashMap<>();
+        int totalResult = 0;
+        Category category = null;
+        String categoryResult = "";
+        for (Object key :map.keySet()){
+            category = ((Question)key).getCategory();
+            if((Boolean)map.get(key)){
+                totalResult++;
+                if(categories.containsKey(category)){
+                    int score = 1+categories.get(category);
+                    categories.replace(category,score);
+                }
+                else{
+                    categories.put(category,1);
+                }
+            }
+            if(!categories.containsKey(category)&&category!=null){
+                    categories.put(category,0);
+                }
+            }
+        for (Object key : categories.keySet()) {
+            categoryResult += "Category: " + key + " " + categories.get(key) + "/" + countCategory((Category)key) + "\n";
+        }
+        result = "uw totale score is " + totalResult + "/" + map.size() + "\n\n" + categoryResult;
+            handleRequest("showResult");
+    }
+
+    private void generateFeedback(){
+        Map map = test.getQuestionsAndIsCorrectlyAnswered();
+        for (Object key :map.keySet()){
+            if(!(Boolean)map.get(key)){
+                feedbackString +="Question:\n" + ((Question)key).getQuestion() + "\nFeedback:\n" + ((Question)key).getFeedback() + "\n\n" ;
+            }
+        }
+
+        handleRequest("showFeedback");
+    }
+
     private void showTestPane() {
         setNextQuestion();
-        setStatementsGroup();
+        if (question != null) {
+            setStatementsGroup();
+            stage = new Stage();
+            root = new Group();
+            borderPane = new BorderPane(testPane);
+            scene = new Scene(root, 750, 400);
+
+            root.getChildren().add(borderPane);
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        }
+    }
+
+    private void showResultPane() {
         stage = new Stage();
         root = new Group();
-        borderPane = new BorderPane(testPane);
+        borderPane = new BorderPane(resultPane);
         scene = new Scene(root, 750, 400);
 
         root.getChildren().add(borderPane);
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+    }
+
+    private void showFeedbackPane() {
+        root = new Group();
+        stage = new Stage();
+        borderPane = new BorderPane(feedbackPane);
+        scene = new Scene(root, 750, 400);
+
+        root.getChildren().add(borderPane);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    private int countCategory(Category category) {
+        int total = 0;
+        for (Object key:test.getQuestionsAndIsCorrectlyAnswered().keySet()) {
+            if(((Question)key).getCategory().equals(category)){
+                total++;
+            }
+        }
+        return total;
     }
 
     @Override
