@@ -79,7 +79,9 @@ public class TestPane extends GridPane implements Observer {
 		return selected;
 	}
 
-	public String getSelectedAnswer(){return statementGroup.getSelectedToggle().toString();}
+	public String getSelectedAnswer(){
+		return((RadioButton)statementGroup.getSelectedToggle()).getText();
+	}
 
 	class VerifyQuestionHandler implements EventHandler<ActionEvent> {
 		@Override

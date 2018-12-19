@@ -63,8 +63,8 @@ public class ResultPane extends GridPane {
     }
 
 
-    public void SetResultScore(int result) {
-        resultField=new Label("Uw score op de test is " + result);
+    public void SetResult(String result) {
+        resultField=new Label(result);
         add(resultField, 0, 0, 1, 1);
     }
 }

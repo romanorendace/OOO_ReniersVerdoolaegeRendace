@@ -5,16 +5,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
+import view.panels.FeedbackPane;
 import view.panels.MessagePane;
 import view.panels.ResultPane;
 import view.panels.TestPane;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class TestController extends Controller implements Observer {
 
     private TestPane testPane;
+    private FeedbackPane feedbackPane;
     private MessagePane messagePane;
     private ResultPane resultPane;
 
@@ -26,7 +29,8 @@ public class TestController extends Controller implements Observer {
     private TestAttempt test;
     private Question question;
 
-    int result = 0;
+    private String result = "";
+    private String feedbackString = "";
 
     public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
@@ -61,8 +65,16 @@ public class TestController extends Controller implements Observer {
         }
         if(action.equals("showResult")){
             resultPane = new ResultPane();
-            resultPane.SetResultScore(result);
+            resultPane.SetResult(result);
             showResultPane();
+        }
+        if(action.equals("showFeedback")){
+            feedbackPane = new FeedbackPane();
+            feedbackPane.setFeedbackField(feedbackString);
+            showFeedbackPane();
+        }
+        if(action.equals("CloseFeedbackPane")){
+            stage.close();
         }
 
     }
@@ -82,6 +94,7 @@ public class TestController extends Controller implements Observer {
         }
         else{
             calculateResult();
+            //generateFeedback();
         }
     }
 
@@ -93,7 +106,8 @@ public class TestController extends Controller implements Observer {
     private void verifyAnswer() {
         if(question instanceof MultipleChoiceQuestion){
             String correctAnswer = ((MultipleChoiceQuestion) question).getStatements().get(0);
-            if(testPane.getSelectedAnswer().equals(correctAnswer)){
+            String choice = testPane.getSelectedAnswer();
+            if(choice.equals(correctAnswer)){
                 test.setVerification(question,true);
             }
             else{
@@ -103,14 +117,43 @@ public class TestController extends Controller implements Observer {
     }
 
     private void calculateResult() {
-
         Map map = test.getQuestionsAndIsCorrectlyAnswered();
-            for (Object value :map.values()){
-                if((Boolean)value){
-                    result++;
+        Map<Category, Integer> categories = new HashMap<>();
+        int totalResult = 0;
+        Category category = null;
+        String categoryResult = "";
+        for (Object key :map.keySet()){
+            category = ((Question)key).getCategory();
+            if((Boolean)map.get(key)){
+                totalResult++;
+                if(categories.containsKey(category)){
+                    int score = 1+categories.get(category);
+                    categories.replace(category,score);
+                }
+                else{
+                    categories.put(category,1);
                 }
             }
+            if(!categories.containsKey(category)&&category!=null){
+                    categories.put(category,0);
+                }
+            }
+        for (Object key : categories.keySet()) {
+            categoryResult += "Category: " + key + " " + categories.get(key) + "/" + countCategory((Category)key) + "\n";
+        }
+        result = "uw totale score is " + totalResult + "/" + map.size() + "\n\n" + categoryResult;
             handleRequest("showResult");
+    }
+
+    private void generateFeedback(){
+        Map map = test.getQuestionsAndIsCorrectlyAnswered();
+        for (Object key :map.keySet()){
+            if(!(Boolean)map.get(key)){
+                feedbackString +="Question:\n" + ((Question)key).getQuestion() + "\nFeedback:\n" + ((Question)key).getFeedback() + "\n\n" ;
+            }
+        }
+
+        handleRequest("showFeedback");
     }
 
     private void showTestPane() {
@@ -139,6 +182,28 @@ public class TestController extends Controller implements Observer {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
+    }
+
+    private void showFeedbackPane() {
+        root = new Group();
+        stage = new Stage();
+        borderPane = new BorderPane(feedbackPane);
+        scene = new Scene(root, 750, 400);
+
+        root.getChildren().add(borderPane);
+        stage.setScene(scene);
+        stage.sizeToScene();
+        stage.show();
+    }
+
+    private int countCategory(Category category) {
+        int total = 0;
+        for (Object key:test.getQuestionsAndIsCorrectlyAnswered().keySet()) {
+            if(((Question)key).getCategory().equals(category)){
+                total++;
+            }
+        }
+        return total;
     }
 
     @Override
