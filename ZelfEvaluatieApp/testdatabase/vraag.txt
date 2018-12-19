@@ -1,6 +1,8 @@
-MultipleChoiceQuestion/In welk jaar werd America ontdekt?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1429 !/1492;1429;1249;129
-MultipleChoiceQuestion/In welk jaar eindige WO 1?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1914 !/1918;1919;1917;191
+MultipleChoiceQuestion/In welk jaar werd America ontdekt?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1429 !/1492;1429;1249;1294;1555
+MultipleChoiceQuestion/In welk jaar eindige WO 1?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1914 !/1918;1919;1917;1914
 MultipleChoiceQuestion/Wat is de hoofdstad van Canada?/Aardrijkskunde;Landen en hun hoofdsteden;None/Het juiste antwoord is niet Vancouver !/Ottawa;Quebec;Toronto;Vancouver;Ontario
-MultipleChoiceQuestion/Wat is de hoofdstad van Brazilië?/Aardrijkskunde;Landen en hun hoofdsteden;None/Het juiste antwoord is niet Sao Paolo !/Brasilia;Sao Paolo;Belo Horizonte;Rio de Janeir
-MultipleChoiceQuestion/In welk jaar viel de Berlijnse Muur?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1991/1989;1988;1987;1990;199
-MultipleChoiceQuestion/Welke wiskunde is ontdekt door Isaac Newton?/Fysica;Natuurkundigen en hun grootste ontdekking;None/Het juiste antwoord is niet Statistiek/Calculus;Algebra;Meetkunde;Statistiek;Topologi
+MultipleChoiceQuestion/Wat is de hoofdstad van Brazilië?/Aardrijkskunde;Landen en hun hoofdsteden;None/Het juiste antwoord is niet Sao Paolo !/Brasilia;Sao Paolo;Belo Horizonte;Rio de Janeiro
+MultipleChoiceQuestion/In welk jaar viel de Berlijnse Muur?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1991/1989;1988;1987;1990;1991
+MultipleChoiceQuestion/Welke wiskunde is ontdekt door Isaac Newton?/Fysica;Natuurkundigen en hun grootste ontdekking;None/Het juiste antwoord is niet Statistiek/Calculus;Algebra;Meetkunde;Statistiek;Topologie
+MultipleChoiceQuestion/Welk organisme heeft de zwaarste hersenen?/Biologie;Dieren en planten;None/Het juiste antwoord is niet de mens./potvis;orca;mens;dolfijn;olifant
+MultipleChoiceQuestion/Welk nucleïnezuur komt niet voor in DNA ?/Biologie;Dieren en planten;None/Het juiste antwoord is niet uracil./uracil ;cytosine;guanine ;adenine;thymine 

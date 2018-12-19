@@ -1,6 +1,8 @@
 package db;
 
 
+import db.strategy.DBStrategy;
+import db.strategy.QuestionTextDBStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Observable;
@@ -71,6 +73,23 @@ public class QuestionDB implements Observable {
         return FXCollections.observableArrayList(questionSet);
     }
 
+    public void updateQuestion(Question original, Question edited) {
+        List temp = new ArrayList();
+        for (Question question : questionSet) {
+            if (question.equals(original)) {
+                temp.add(edited);
+            } else {
+                temp.add(question);
+            }
+        }
+        questionSet = new LinkedHashSet<>(temp);
+        saveDataToStorage();
+        notifyObservers(null);
+    }
+
+    private void saveDataToStorage() {
+        dbStrategy.saveToStorage();
+    }
 
     @Override
     public void registerObserver(Observer o) {

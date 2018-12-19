@@ -53,37 +53,52 @@ public class CategoryDetailPane extends GridPane implements Observer {
 		this.add(btnSave, 1, 3, 1, 1);
 	}
 
+	// GETTERS & SETTERS
 	public String getTitleFieldString() {
 		return titleField.getCharacters().toString();
+	}
+	public void setTitleField(String title) {
+		this.titleField.setText(title);
 	}
 
 	public String getDescriptionFieldString() {
 		return descriptionField.getCharacters().toString();
 	}
+	public void setDescriptionField(String description) {
+		this.descriptionField.setText(description);
+	}
 
 	public String getCategoryFieldString() {
 		return categoryField.getValue().toString();
+	}
+	public void setCategoryField(String category) {
+		this.categoryField.getSelectionModel().select(category);
 	}
 
 	public void setController(Controller controller) {
 		this.controller = controller;
 	}
 
-	public void setSaveAction(EventHandler<ActionEvent> saveAction) {
+	private void setSaveAction(EventHandler<ActionEvent> saveAction) {
 		btnSave.setOnAction(saveAction);
 	}
 
-	public void setCancelAction(EventHandler<ActionEvent> cancelAction) {
+	private void setCancelAction(EventHandler<ActionEvent> cancelAction) {
 		btnCancel.setOnAction(cancelAction);
 	}
 
 
+	// AUX METHODS
 	private void populateCategoryField() {
 		controller.handleRequest("PopulateCategoryField");
 	}
 
 	public void setCategoryField(ObservableList<String> categoryList) {
 		categoryField.setItems(categoryList);
+	}
+
+	public void setSaveActionForEdit() {
+		setSaveAction(new EditCategoryHandler());
 	}
 
 	@Override
@@ -101,7 +116,23 @@ public class CategoryDetailPane extends GridPane implements Observer {
 	class CancelCategoryHandler implements EventHandler<ActionEvent> {
 		@Override
 		public void handle(ActionEvent event) {
+			clearInputFields();
+			setSaveAction(new SaveCategoryHandler());
 			controller.handleRequest("CancelCategory");
 		}
+	}
+
+	class EditCategoryHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			setSaveAction(new SaveCategoryHandler());
+			controller.handleRequest("EditCategory");
+		}
+	}
+
+	private void clearInputFields() {
+		titleField.setText("");
+		descriptionField.setText("");
+		categoryField.getSelectionModel().selectFirst();
 	}
 }

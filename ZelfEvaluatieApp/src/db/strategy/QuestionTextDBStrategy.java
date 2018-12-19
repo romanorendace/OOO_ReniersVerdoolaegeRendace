@@ -1,5 +1,6 @@
-package db;
+package db.strategy;
 
+import db.QuestionDB;
 import model.Category;
 import model.MultipleChoiceQuestion;
 import model.Question;
@@ -48,6 +49,7 @@ public class QuestionTextDBStrategy extends TextDBStrategy {
 
     @Override
     public void setDataToStorage() {
+        clearFile();
         Set<Question> questionSet = QuestionDB.getInstance().getQuestionSet();
         for (Question question : questionSet) {
             saveObjectToStorage(question);
@@ -62,6 +64,16 @@ public class QuestionTextDBStrategy extends TextDBStrategy {
             saveMultipleChoiceQuestionToStorage(question);
         }
     }
+
+    private void clearFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(file, false);
+            fos.write("".getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void saveMultipleChoiceQuestionToStorage(MultipleChoiceQuestion MCquestion) {
         try (FileOutputStream fos = new FileOutputStream(file, true);
@@ -97,7 +109,7 @@ public class QuestionTextDBStrategy extends TextDBStrategy {
         for (String s : MCquestion.getStatements()) {
             statementsToString += s + ";";
         }
-        return statementsToString.substring(0, statementsToString.length()-2);
+        return statementsToString.substring(0, statementsToString.length()-1);
     }
 
     private Question createQuestionFromInstanceStrings(String[] instanceStrings) {

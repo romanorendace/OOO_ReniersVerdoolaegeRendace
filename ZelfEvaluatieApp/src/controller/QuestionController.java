@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Question;
 import view.panels.Pane;
 import view.panels.QuestionDetailPane;
 import view.panels.QuestionOverviewPane;
@@ -13,6 +16,7 @@ public class QuestionController extends Controller {
     private Pane pane;
 
     private List<String> statements;
+    private Question originalQuestionToEdit;
 
 
     public QuestionController() {
@@ -49,6 +53,23 @@ public class QuestionController extends Controller {
     @Override
     protected Controller getController() {
         return this;
+    }
+
+    public void setOriginalQuestionToEdit(Question originalQuestionToEdit) {
+        this.originalQuestionToEdit = originalQuestionToEdit;
+    }
+    public Question getOriginalQuestionToEdit() {
+        return originalQuestionToEdit;
+    }
+
+    // AUX METHODS
+    public void updateStatementsListOverview() {
+        ObservableList<String> statementsObservableList = FXCollections.observableList(statements);
+        questionDetailPane.updateStatementsInView(statementsObservableList);
+    }
+
+    public void clearInputFields() {
+        questionDetailPane.clearInputFields();
     }
 
 }

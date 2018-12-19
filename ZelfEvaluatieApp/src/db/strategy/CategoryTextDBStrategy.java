@@ -1,6 +1,7 @@
-package db;
+package db.strategy;
 
 
+import db.CategoryDB;
 import model.Category;
 import java.io.*;
 import java.util.*;
@@ -50,6 +51,7 @@ public class CategoryTextDBStrategy extends TextDBStrategy {
 
     @Override
     public void setDataToStorage() {
+        clearFile();
         Set<Category> categorySet = CategoryDB.getInstance().getCategorySet();
         for (Category category : categorySet) {
             saveObjectToStorage(category);
@@ -74,4 +76,12 @@ public class CategoryTextDBStrategy extends TextDBStrategy {
         }
     }
 
+    private void clearFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(file, false);
+            fos.write("".getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

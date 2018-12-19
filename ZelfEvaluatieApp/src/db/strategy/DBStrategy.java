@@ -1,4 +1,4 @@
-package db;
+package db.strategy;
 
 import model.Category;
 

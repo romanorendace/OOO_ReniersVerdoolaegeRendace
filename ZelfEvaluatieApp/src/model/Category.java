@@ -28,15 +28,15 @@ public class Category implements Comparable<Category>, Serializable {
         return mainCategoryTitle;
     }
 
-    private void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    private void setMainCategoryTitle(String mainCategoryTitle) {
+    public void setMainCategoryTitle(String mainCategoryTitle) {
         this.mainCategoryTitle = mainCategoryTitle;
     }
 
@@ -45,8 +45,10 @@ public class Category implements Comparable<Category>, Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Category)) return false;
-        Category category = (Category) o;
-        return Objects.equals(getTitle(), category.getTitle());
+        Category that = (Category) o;
+        return     this.title.equals(that.getTitle())
+                && this.description.equals(that.getDescription())
+                && this.mainCategoryTitle.equals(that.getMainCategoryTitle());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package db;
+package db.strategy;
 
 
 public abstract class TextDBStrategy implements DBStrategy {

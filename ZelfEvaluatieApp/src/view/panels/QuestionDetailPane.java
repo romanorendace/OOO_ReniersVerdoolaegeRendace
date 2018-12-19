@@ -2,6 +2,7 @@ package view.panels;
 
 import controller.Controller;
 import db.CategoryDB;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.*;
+
+import java.util.List;
 
 
 public class QuestionDetailPane extends GridPane implements Observer {
@@ -77,16 +80,17 @@ public class QuestionDetailPane extends GridPane implements Observer {
 
     }
 
+    // GETTERS & SETTERS
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
     public String getQuestionFieldString() {
         return questionField.getCharacters().toString();
     }
 
     public String getCategoryFieldString() {
         return categoryField.getValue().toString();
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
     }
 
     public void setSaveAction(EventHandler<ActionEvent> saveAction) {
@@ -97,6 +101,19 @@ public class QuestionDetailPane extends GridPane implements Observer {
         btnCancel.setOnAction(cancelAction);
     }
 
+    public void setQuestionField(String question) {
+        this.questionField.setText(question);
+    }
+
+    public void setFeedbackField(String feedback) {
+        this.feedbackField.setText(feedback);
+    }
+
+    public void setCategoryField(String category) {
+        categoryField.getSelectionModel().select(category);
+    }
+
+    // AUX METHODS
     public void updateStatementsInView(ObservableList statements) {
         statementsArea.setItems(statements);
     }
@@ -105,20 +122,42 @@ public class QuestionDetailPane extends GridPane implements Observer {
         return statementField.getCharacters().toString();
     }
 
+    public String getSelectedStatement() {
+        Object statement = statementsArea.getSelectionModel().getSelectedItem();
+        return String.valueOf(statement);
+    }
+
+    public List<String> getStatements() {
+        return statementsArea.getItems();
+    }
 
     public void clearInputFields() {
         statementField.setText("");
         feedbackField.setText("");
         questionField.setText("");
+        categoryField.getSelectionModel().selectFirst();
+    }
 
+    public void clearStatementField() {
+        statementField.setText("");
     }
 
     public String getFeedbackField() {
         return feedbackField.getCharacters().toString();
     }
 
-    public ObservableList getStatementsListArea() {
-        return statementsArea.getItems();
+    private void updateCategoryListInCategoryField(Observable o) {
+        CategoryDB categoryDB = (CategoryDB) o;
+        ObservableList<String> categoryTitlesObservableList = categoryDB.getObservableListOfCategoryTitles();
+        categoryField.setItems(categoryTitlesObservableList);
+    }
+
+    public void setSaveActionForEdit() {
+        setSaveAction(new EditQuestionHandler());
+    }
+
+    public void setSaveActionToSave() {
+        setSaveAction(new SaveQuestionHandler());
     }
 
 
@@ -146,7 +185,17 @@ public class QuestionDetailPane extends GridPane implements Observer {
     class CancelQuestionHandler implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+            clearInputFields();
+            setSaveActionToSave();
             controller.handleRequest("CancelQuestion");
+        }
+    }
+
+    class EditQuestionHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            setSaveAction(new SaveQuestionHandler());
+            controller.handleRequest("EditQuestion");
         }
     }
 
@@ -158,10 +207,5 @@ public class QuestionDetailPane extends GridPane implements Observer {
         }
     }
 
-    private void updateCategoryListInCategoryField(Observable o) {
-        CategoryDB categoryDB = (CategoryDB) o;
-        ObservableList<String> categoryTitlesObservableList = categoryDB.getObservableListOfCategoryTitles();
-        categoryField.setItems(categoryTitlesObservableList);
-    }
 
 }

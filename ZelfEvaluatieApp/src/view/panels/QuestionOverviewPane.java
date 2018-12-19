@@ -39,6 +39,7 @@ public class QuestionOverviewPane extends GridPane implements Observer {
         TableColumn descriptionCol = new TableColumn<>("Category");
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("category"));
         table.getColumns().add(descriptionCol);
+        setEditAction(new EditQuestionHandler());
         this.add(table, 0, 1, 2, 6);
 
         btnNew = new Button("New");
@@ -59,6 +60,17 @@ public class QuestionOverviewPane extends GridPane implements Observer {
         table.setOnMouseClicked(editAction);
     }
 
+
+    private void updateQuestionOverviewTable(Observable o) {
+        QuestionDB questionDB = (QuestionDB) o;
+        ObservableList<Question> questionObservableList = questionDB.getObservableListOfQuestions();
+        table.setItems(questionObservableList);
+    }
+
+    public Question getSelectedQuestion() {
+        return (Question) table.getSelectionModel().getSelectedItem();
+    }
+
     @Override
     public void update(Observable o, Object args) {
         if (o instanceof QuestionDB) {
@@ -73,9 +85,13 @@ public class QuestionOverviewPane extends GridPane implements Observer {
         }
     }
 
-    private void updateQuestionOverviewTable(Observable o) {
-        QuestionDB questionDB = (QuestionDB) o;
-        ObservableList<Question> questionObservableList = questionDB.getObservableListOfQuestions();
-        table.setItems(questionObservableList);
+    class EditQuestionHandler implements EventHandler<MouseEvent> {
+        @Override
+        public void handle(MouseEvent event) {
+            if (event.getClickCount() == 2) {
+                questionController.handleRequest("ShowEditQuestionDetailPane");
+            }
+        }
     }
+
 }

@@ -93,7 +93,7 @@ public class Main extends Application {
         setMVCReferencesForModelObjects();
     }
     private void setMVCReferencesForViewObject() {
-        categoryOverviewPanel.setContoller(categoryController);
+        categoryOverviewPanel.setController(categoryController);
         categoryDetailPanel.setController(categoryController);
 
         questionOverviewPane.setController(questionController);

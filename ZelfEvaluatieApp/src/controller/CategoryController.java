@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.Category;
 import view.panels.CategoryDetailPane;
 import view.panels.CategoryOverviewPane;
 import view.panels.Pane;
@@ -11,6 +12,8 @@ public class CategoryController extends Controller {
     private CategoryOverviewPane categoryOverviewPane;
     private CategoryDetailPane categoryDetailPane;
     private Pane pane;
+
+    private Category originalCategoryToEdit;
 
     public CategoryController() {
         pane = new Pane();
@@ -34,6 +37,13 @@ public class CategoryController extends Controller {
 
     public Pane getPane() {
         return pane;
+    }
+
+    public Category getOriginalCategoryToEdit() {
+        return originalCategoryToEdit;
+    }
+    public void setOriginalCategoryToEdit(Category originalCategoryToEdit) {
+        this.originalCategoryToEdit = originalCategoryToEdit;
     }
 
     @Override

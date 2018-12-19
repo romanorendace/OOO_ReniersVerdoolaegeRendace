@@ -1,6 +1,6 @@
-Geschiedenis/Gebeurtenissen en hun jaartal/None
-Aardrijkskunde/Landen en hun hoofdsteden/None
-Biology/Dieren en de namen van hun kinderen/None
-Scheikunde/Stoffen en hun afkorting/None
 Fysica/Natuurkundigen en hun grootste ontdekking/None
 Sport/Sporters en hun recorden/None
+Geschiedenis/Gebeurtenissen en hun jaartal/None
+Aardrijkskunde/Landen en hun hoofdsteden/None
+Biologie/Dieren en planten/None
+Scheikunde/Stoffen en hun afkorting/None

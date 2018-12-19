@@ -27,6 +27,25 @@ public class ZelfEvaluatieService implements Observable {
         observers = new ArrayList<>();
     }
 
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers(Object args) {
+        for (Observer o : observers) {
+            o.update(this, null);
+        }
+        categoryDB.notifyObservers(args);
+        questionDB.notifyObservers(args);
+    }
+
     public CategoryDB getCategoryDB() {
         return categoryDB;
     }
@@ -47,24 +66,9 @@ public class ZelfEvaluatieService implements Observable {
         this.testController = testController;
     }
 
-    @Override
-    public void registerObserver(Observer o) {
-        observers.add(o);
-    }
 
-    @Override
-    public void removeObserver(Observer o) {
-        observers.remove(o);
-    }
 
-    @Override
-    public void notifyObservers(Object args) {
-        for (Observer o : observers) {
-            o.update(this, null);
-        }
-        categoryDB.notifyObservers(args);
-        questionDB.notifyObservers(args);
-    }
+    public void updateCategory(Category original, Category edited) { categoryDB.updateCategory(original, edited); }
 
     public Category getCategory(String title) {
         return categoryDB.getCategory(title);
@@ -78,8 +82,11 @@ public class ZelfEvaluatieService implements Observable {
         categoryDB.saveNewCategory(category);
     }
 
+    public void saveNewQuestion(Question question) { questionDB.saveNewQuestion(question);}
 
-    public void saveNewQuestion(Question question) {questionDB.saveNewQuestion(question);}
+    public void updateQuestion(Question original, Question edited) {
+        questionDB.updateQuestion(original, edited);
+    }
 
     public void loadDataFromStorageIntoLocalMemory() {
         categoryDB.loadDataInLocalMemory();

@@ -1,5 +1,7 @@
 package db;
 
+import db.strategy.CategoryTextDBStrategy;
+import db.strategy.DBStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Category;
@@ -53,6 +55,20 @@ public class CategoryDB implements Observable {
     public void saveNewCategory(Category category) {
         categorySet.add(category);
         saveCategoryToStorage(category);
+    }
+
+    public void updateCategory(Category original, Category edited) {
+        List temp = new ArrayList();
+        for (Category category : categorySet) {
+            if (category.equals(original)) {
+                temp.add(edited);
+            } else {
+                temp.add(category);
+            }
+        }
+        categorySet = new LinkedHashSet<>(temp);
+        saveDataToStorage();
+        notifyObservers(null);
     }
 
     private void saveCategoryToStorage(Category category) {
