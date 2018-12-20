@@ -3,6 +3,7 @@ package controller;
 import controller.requestHandler.RequestHandler;
 import controller.requestHandler.RequestHandlerFactory;
 import model.ZelfEvaluatieService;
+import view.panels.OptionsPane;
 
 public abstract class Controller {
 
@@ -29,4 +30,5 @@ public abstract class Controller {
     public void setService(ZelfEvaluatieService service) {
         this.service = service;
     }
+
 }

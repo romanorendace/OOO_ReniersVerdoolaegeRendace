@@ -2,6 +2,7 @@ package model;
 
 import controller.Controller;
 import db.CategoryDB;
+import db.OptionsDB;
 import db.QuestionDB;
 
 import java.util.ArrayList;
@@ -15,15 +16,19 @@ public class ZelfEvaluatieService implements Observable {
     private Controller categoryController;
     private Controller questionController;
     private Controller testController;
+    private Controller optionsController;
 
     private List<Observer> observers;
 
     private CategoryDB categoryDB;
     private QuestionDB questionDB;
+    private OptionsDB optionsDB;
 
     public ZelfEvaluatieService() {
         categoryDB = CategoryDB.getInstance();
         questionDB = QuestionDB.getInstance();
+        optionsDB = OptionsDB.getInstance();
+
         observers = new ArrayList<>();
     }
 
@@ -54,6 +59,8 @@ public class ZelfEvaluatieService implements Observable {
         return questionDB;
     }
 
+    public OptionsDB getOptionsDB() { return optionsDB; }
+
     public void setCategoryController(Controller categoryController) {
         this.categoryController = categoryController;
     }
@@ -65,6 +72,8 @@ public class ZelfEvaluatieService implements Observable {
     public void setTestController(Controller testController) {
         this.testController = testController;
     }
+
+    public void setOptionsController(Controller optionsController){this.optionsController=optionsController;}
 
 
 
@@ -100,4 +109,6 @@ public class ZelfEvaluatieService implements Observable {
         test.setQuestionsAndIsCorrectlyAnswered(questions);
         return test;
     }
+
+    public String getFeedbackMethod(){return optionsDB.getMethod();}
 }

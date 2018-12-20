@@ -1,21 +1,13 @@
 package application;
 
-import controller.CategoryController;
-import controller.QuestionController;
-import controller.TestController;
+import controller.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.ZelfEvaluatieService;
-import view.panels.AssesMainPane;
-import view.panels.CategoryDetailPane;
-import view.panels.CategoryOverviewPane;
-import view.panels.MessagePane;
-import view.panels.QuestionDetailPane;
-import view.panels.QuestionOverviewPane;
-import view.panels.TestPane;
+import view.panels.*;
 
 public class Main extends Application {
 
@@ -24,6 +16,8 @@ public class Main extends Application {
 
     private CategoryOverviewPane categoryOverviewPanel;
     private CategoryDetailPane categoryDetailPanel;
+
+    private OptionsPane optionsPane;
 
     private TestPane testPane;
     private MessagePane messagePane;
@@ -35,6 +29,7 @@ public class Main extends Application {
     private CategoryController categoryController;
     private QuestionController questionController;
     private TestController testController;
+    private OptionsController optionsController;
 
     private ZelfEvaluatieService zelfEvaluatieService;
 
@@ -76,11 +71,14 @@ public class Main extends Application {
 
         testPane = new TestPane();
         messagePane = new MessagePane();
+
+        optionsPane = new OptionsPane();
     }
     private void initializeControllerObjects() {
           categoryController = new CategoryController();
           questionController = new QuestionController();
           testController = new TestController();
+          optionsController = new OptionsController();
     }
     private void initializeModelObjects() {
         zelfEvaluatieService = new ZelfEvaluatieService();
@@ -101,6 +99,8 @@ public class Main extends Application {
 
         testPane.setController(testController);
         messagePane.setController(testController);
+
+        optionsPane.setController(optionsController);
     }
     private void setMVCReferencesForControllerObjects() {
         categoryController.setService(zelfEvaluatieService);
@@ -114,11 +114,15 @@ public class Main extends Application {
         testController.setService(zelfEvaluatieService);
         testController.setTestPane(testPane);
         testController.setMessagePane(messagePane);
+
+        optionsController.setService(zelfEvaluatieService);
+        optionsController.setOptionsPane(optionsPane);
     }
     private void setMVCReferencesForModelObjects() {
         zelfEvaluatieService.setCategoryController(categoryController);
         zelfEvaluatieService.setQuestionController(questionController);
         zelfEvaluatieService.setTestController(testController);
+        zelfEvaluatieService.setOptionsController(optionsController);
     }
 
     private void registerObserversInMVC() {
@@ -145,7 +149,7 @@ public class Main extends Application {
         root = new Group();
         scene = new Scene(root, 750, 400);
 
-        borderPane = new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane);
+        borderPane = new AssesMainPane(messagePane, categoryOverviewPanel, questionOverviewPane, optionsPane);
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
 

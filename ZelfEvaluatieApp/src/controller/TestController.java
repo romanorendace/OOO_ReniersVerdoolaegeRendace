@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class TestController extends Controller implements Observer {
+public class TestController extends Controller implements Observer{
 
     private TestPane testPane;
     private FeedbackPane feedbackPane;
@@ -92,9 +92,15 @@ public class TestController extends Controller implements Observer {
         if(question!=null) {
             testPane.setQuestionField(question.getQuestion());
         }
-        else{
-            calculateResult();
-            //generateFeedback();
+        else {
+            if (getService().getFeedbackMethod().equals("feedback")) {
+                generateFeedback();
+            } else if (getService().getFeedbackMethod().equals("score")) {
+                calculateResult();
+            } else {
+                System.out.println(getService().getFeedbackMethod());
+
+            }
         }
     }
 
@@ -141,8 +147,13 @@ public class TestController extends Controller implements Observer {
         for (Object key : categories.keySet()) {
             categoryResult += "Category: " + key + " " + categories.get(key) + "/" + countCategory((Category)key) + "\n";
         }
+        if (totalResult == map.size()){
+            result = "Schitterend! U heeft alle " + totalResult + " vragen juist beantwoord!";
+        }
+        else{
         result = "uw totale score is " + totalResult + "/" + map.size() + "\n\n" + categoryResult;
-            handleRequest("showResult");
+        }
+        handleRequest("showResult");
     }
 
     private void generateFeedback(){
