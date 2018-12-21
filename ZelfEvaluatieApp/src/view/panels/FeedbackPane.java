@@ -22,6 +22,7 @@ public class FeedbackPane extends GridPane implements Observer {
     private Controller controller;
 
     private Label feedbackField;
+    private Button retryButton, closeButton;
 
     public FeedbackPane() {
         setBorder(new Border(new BorderStroke(Color.BLACK,
@@ -33,6 +34,16 @@ public class FeedbackPane extends GridPane implements Observer {
 
         feedbackField = new Label();
 
+        retryButton = new Button("retry");
+        setRetryAction(new FeedbackPane.RetryTestHandler());
+        retryButton.setText("retry");
+        add(retryButton, 0, 11, 1, 1);
+
+        closeButton = new Button("Close");
+        setCloseAction(new FeedbackPane.ClosePaneHandler());
+        closeButton.setText("Close");
+        add(closeButton, 1, 11, 1, 1);
+
     }
 
 
@@ -43,6 +54,29 @@ public class FeedbackPane extends GridPane implements Observer {
     public void setFeedbackField(String feedback){
         feedbackField=new Label(feedback);
         add(feedbackField, 0, 0, 1, 1);
+    }
+
+    public void setRetryAction(EventHandler<ActionEvent> retryAction) {
+        retryButton.setOnAction(retryAction);
+    }
+
+    public void setCloseAction(EventHandler<ActionEvent> retryAction) {
+        closeButton.setOnAction(retryAction);
+    }
+
+    class RetryTestHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleRequest("ClosePane");
+            controller.handleRequest("ShowTestPane");
+        }
+    }
+
+    class ClosePaneHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            controller.handleRequest("ClosePane");
+        }
     }
 
     @Override

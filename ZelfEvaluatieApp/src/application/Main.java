@@ -22,6 +22,9 @@ public class Main extends Application {
     private TestPane testPane;
     private MessagePane messagePane;
 
+    private FeedbackPane feedbackPane;
+    private ResultPane resultPane;
+
     private Group root;
     private Scene scene;
     private BorderPane borderPane;
@@ -72,6 +75,9 @@ public class Main extends Application {
         testPane = new TestPane();
         messagePane = new MessagePane();
 
+        feedbackPane = new FeedbackPane();
+        resultPane = new ResultPane();
+
         optionsPane = new OptionsPane();
     }
     private void initializeControllerObjects() {
@@ -100,6 +106,9 @@ public class Main extends Application {
         testPane.setController(testController);
         messagePane.setController(testController);
 
+        feedbackPane.setController(testController);
+        resultPane.setController(testController);
+
         optionsPane.setController(optionsController);
     }
     private void setMVCReferencesForControllerObjects() {
@@ -114,6 +123,8 @@ public class Main extends Application {
         testController.setService(zelfEvaluatieService);
         testController.setTestPane(testPane);
         testController.setMessagePane(messagePane);
+        testController.setFeedbackPane(feedbackPane);
+        testController.setResultPane(resultPane);
 
         optionsController.setService(zelfEvaluatieService);
         optionsController.setOptionsPane(optionsPane);
@@ -126,9 +137,9 @@ public class Main extends Application {
     }
 
     private void registerObserversInMVC() {
-        registerObserversinView();
+        registerObserversInView();
     }
-    private void registerObserversinView() {
+    private void registerObserversInView() {
         zelfEvaluatieService.getCategoryDB().registerObserver(categoryOverviewPanel);
         zelfEvaluatieService.getCategoryDB().registerObserver(categoryDetailPanel);
         zelfEvaluatieService.getCategoryDB().registerObserver(questionDetailPane);

@@ -34,9 +34,10 @@ public class TestPane extends GridPane implements Observer {
 		statementGroup = new ToggleGroup();
 
 		submitButton = new Button("Submit");
-		setAction(new VerifyQuestionHandler());
+		setVerificationAction(new VerifyQuestionHandler());
 		submitButton.setText("Submit");
 		add(submitButton, 0, 11, 1, 1);
+
 	}
 
     public void setController(Controller controller) {
@@ -63,7 +64,7 @@ public class TestPane extends GridPane implements Observer {
 		add(vbox,0,1,1,1);
 	}
 
-	public void setAction(EventHandler<ActionEvent> verifyQuestionAction) {
+	public void setVerificationAction(EventHandler<ActionEvent> verifyQuestionAction) {
 		submitButton.setOnAction(verifyQuestionAction);
 	}
 

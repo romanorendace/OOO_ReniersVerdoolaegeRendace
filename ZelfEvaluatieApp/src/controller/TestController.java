@@ -32,14 +32,6 @@ public class TestController extends Controller implements Observer{
     private String result = "";
     private String feedbackString = "";
 
-    public void setTestPane(TestPane testPane) {
-        this.testPane = testPane;
-    }
-
-    public void setMessagePane(MessagePane messagePane) {
-        this.messagePane = messagePane;
-    }
-
     @Override
     protected Controller getController() {
         return this;
@@ -66,33 +58,42 @@ public class TestController extends Controller implements Observer{
         if(action.equals("showResult")){
             resultPane = new ResultPane();
             resultPane.SetResult(result);
+            resultPane.setController(this);
             showResultPane();
         }
         if(action.equals("showFeedback")){
             feedbackPane = new FeedbackPane();
             feedbackPane.setFeedbackField(feedbackString);
+            feedbackPane.setController(this);
             showFeedbackPane();
         }
-        if(action.equals("CloseFeedbackPane")){
+        if(action.equals("ClosePane")){
             stage.close();
         }
 
     }
 
-    private void generateTestAttempt() {
-        this.test = getService().generateTestAttempt();
+    public void setTestPane(TestPane testPane) {
+        this.testPane = testPane;
     }
 
-    private void nextQuestion(){
-        handleRequest("nextQuestion");
+    public void setMessagePane(MessagePane messagePane) {
+        this.messagePane = messagePane;
     }
 
-    public void setNextQuestion(){
+    public void setFeedbackPane(FeedbackPane feedbackPane) {
+        this.feedbackPane=feedbackPane;
+    }
+
+    public void setResultPane(ResultPane resultPane) {
+        this.resultPane=resultPane;
+    }
+
+    public void setNextQuestion() {
         question = test.getNextQuestion();
-        if(question!=null) {
+        if (question != null) {
             testPane.setQuestionField(question.getQuestion());
-        }
-        else {
+        } else {
             if (getService().getFeedbackMethod().equals("feedback")) {
                 generateFeedback();
             } else if (getService().getFeedbackMethod().equals("score")) {
@@ -102,6 +103,14 @@ public class TestController extends Controller implements Observer{
 
             }
         }
+    }
+
+    private void generateTestAttempt() {
+        this.test = getService().generateTestAttempt();
+    }
+
+    private void nextQuestion(){
+        handleRequest("nextQuestion");
     }
 
     private void setStatementsGroup(){
