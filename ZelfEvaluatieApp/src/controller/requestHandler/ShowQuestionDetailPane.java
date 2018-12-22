@@ -3,6 +3,9 @@ package controller.requestHandler;
 import controller.QuestionController;
 import view.panels.Pane;
 
+/**
+ * @author Romano Rendace
+ */
 public class ShowQuestionDetailPane extends RequestHandler {
 
     @Override

@@ -6,7 +6,9 @@ import view.panels.CategoryDetailPane;
 import view.panels.CategoryOverviewPane;
 import view.panels.Pane;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class CategoryController extends Controller {
 
     private CategoryOverviewPane categoryOverviewPane;

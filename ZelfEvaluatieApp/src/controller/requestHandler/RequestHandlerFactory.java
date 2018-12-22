@@ -2,6 +2,9 @@ package controller.requestHandler;
 
 import controller.Controller;
 
+/**
+ * @author Romano Rendace
+ */
 public class RequestHandlerFactory {
 
     public RequestHandler getHandler(String request, Controller controller) { return createHandler(request, controller); }

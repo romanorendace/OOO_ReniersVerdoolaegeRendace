@@ -12,7 +12,7 @@ import view.panels.TestPane;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestController extends Controller implements Observer{
+public class TestController extends Controller  {
 
     private TestPane testPane;
     private FeedbackPane feedbackPane;
@@ -36,6 +36,8 @@ public class TestController extends Controller implements Observer{
 
     @Override
     public void handleRequest(String action) {
+
+
         if (action.equals("ShowTestPane")) {
             generateTestAttempt();
             showTestPane();
@@ -219,9 +221,5 @@ public class TestController extends Controller implements Observer{
         return total;
     }
 
-    @Override
-    public void update(Observable o, Object args) {
 
-
-    }
 }

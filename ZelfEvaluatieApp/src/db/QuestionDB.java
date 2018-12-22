@@ -11,9 +11,12 @@ import model.Question;
 
 import java.util.*;
 
-// SINGLETON
+/**
+ * @author Romano Rendace
+ */
 public class QuestionDB implements Observable {
 
+    // SINGLETON
     private static QuestionDB uniqueInstance;
     private Set<Question> questionSet;
     private DBStrategy dbStrategy;

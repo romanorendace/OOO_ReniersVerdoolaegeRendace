@@ -9,6 +9,9 @@ import view.panels.QuestionOverviewPane;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Romano Rendace
+ */
 public class QuestionController extends Controller {
 
     private QuestionOverviewPane questionOverviewPane;

@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * @author Romano Rendace
+ */
 public class Category implements Comparable<Category>, Serializable {
 
     private String title;

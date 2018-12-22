@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * @author Romano Rendace
+ */
 public class QuestionFactory {
 
     public Question createQuestion(String questionType, String question, Category category, String feedback) {

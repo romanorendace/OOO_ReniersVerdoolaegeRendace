@@ -1,6 +1,8 @@
 package db.strategy;
 
-
+/**
+ * @author Romano Rendace
+ */
 public abstract class TextDBStrategy implements DBStrategy {
 
 

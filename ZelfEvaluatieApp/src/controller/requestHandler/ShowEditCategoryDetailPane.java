@@ -4,6 +4,9 @@ import controller.CategoryController;
 import model.Category;
 import view.panels.CategoryDetailPane;
 
+/**
+ * @author Romano Rendace
+ */
 public class ShowEditCategoryDetailPane extends RequestHandler {
 
     CategoryController controller;

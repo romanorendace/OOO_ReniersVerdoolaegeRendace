@@ -6,6 +6,9 @@ import javafx.collections.ObservableList;
 import model.Category;
 import java.util.Set;
 
+/**
+ * @author Romano Rendace
+ */
 public class PopulateCategoryField extends RequestHandler {
 
     CategoryController controller;

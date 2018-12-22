@@ -2,7 +2,9 @@ package controller.requestHandler;
 
 import controller.QuestionController;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class RemoveStatement extends RequestHandler {
 
     QuestionController controller;

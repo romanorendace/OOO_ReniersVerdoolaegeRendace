@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Romano Rendace
+ */
 public class MultipleChoiceQuestion extends Question  {
 
     private List<String> statements;

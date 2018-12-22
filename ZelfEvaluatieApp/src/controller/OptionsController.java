@@ -8,7 +8,7 @@ import view.panels.OptionsPane;
 
 
 
-public class OptionsController extends  Controller{
+public class OptionsController extends Controller {
 
     private  OptionsPane optionsPane;
 

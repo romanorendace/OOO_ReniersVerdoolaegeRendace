@@ -8,7 +8,9 @@ import model.QuestionFactory;
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class QuestionTextDBStrategy extends TextDBStrategy {
 
     private File file;

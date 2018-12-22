@@ -9,9 +9,12 @@ import model.Observable;
 import model.Observer;
 import java.util.*;
 
-// SINGLETON
+/**
+ * @author Romano Rendace
+ */
 public class CategoryDB implements Observable {
 
+    // SINGLETON
     private static CategoryDB uniqueInstance;
     private Set<Category> categorySet;
     private DBStrategy dbStrategy;

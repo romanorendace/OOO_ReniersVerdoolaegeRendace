@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * @author Romano Rendace
+ */
 public interface Observable {
 
     void registerObserver(Observer o);

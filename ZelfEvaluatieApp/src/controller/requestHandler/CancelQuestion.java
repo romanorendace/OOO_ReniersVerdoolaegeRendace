@@ -6,6 +6,9 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ * @author Romano Rendace
+ */
 public class CancelQuestion extends RequestHandler {
 
     QuestionController controller;

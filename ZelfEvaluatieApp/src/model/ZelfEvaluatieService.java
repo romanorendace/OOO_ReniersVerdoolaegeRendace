@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// Facade Class
+/**
+ * @author Romano Rendace
+ */
 public class ZelfEvaluatieService implements Observable {
 
+    // Facade Class
     private Controller categoryController;
     private Controller questionController;
     private Controller testController;

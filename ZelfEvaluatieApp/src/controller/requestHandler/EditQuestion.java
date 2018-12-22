@@ -9,6 +9,9 @@ import view.panels.QuestionDetailPane;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Romano Rendace
+ */
 public class EditQuestion extends RequestHandler {
 
     QuestionController controller;

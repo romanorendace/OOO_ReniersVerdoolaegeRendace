@@ -2,32 +2,34 @@ package model.testStates;
 
 import model.TestAttempt;
 
-public class Ongoing implements TestState {
-
-    private TestAttempt testAttempt;
+/**
+ * @author Romano Rendace
+ */
+public class Ongoing extends TestState {
 
     public Ongoing(TestAttempt testAttempt) {
-        this.testAttempt = testAttempt;
+        super(testAttempt);
+    }
+
+
+    @Override
+    public void startTest() {
+
     }
 
     @Override
-    public void readyToStart() {
-        // DO NOTHING
-    }
-
-    @Override
-    public void ongoing() {
-        while (hasNextQuestion()) {
+    public void showNextQuestion() {
+        while(hasNextQuestion()) {
 
 
 
+            getTestAttempt().setState(getTestAttempt().getCompleted());
         }
-        testAttempt.setState(testAttempt.getCompleted());
     }
 
     @Override
-    public void completed() {
-        // DO NOTHING
+    public void showFinalEvaluation() {
+
     }
 
     private boolean hasNextQuestion() {

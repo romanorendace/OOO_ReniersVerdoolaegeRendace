@@ -4,6 +4,10 @@ import controller.requestHandler.RequestHandler;
 import controller.requestHandler.RequestHandlerFactory;
 import model.ZelfEvaluatieService;
 
+
+/**
+ * @author Romano Rendace
+ */
 public abstract class Controller {
 
     private ZelfEvaluatieService service;

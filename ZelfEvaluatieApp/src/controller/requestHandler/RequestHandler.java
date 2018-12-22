@@ -2,6 +2,9 @@ package controller.requestHandler;
 
 import controller.Controller;
 
+/**
+ * @author Romano Rendace
+ */
 public abstract class RequestHandler {
     
     private Controller controller;

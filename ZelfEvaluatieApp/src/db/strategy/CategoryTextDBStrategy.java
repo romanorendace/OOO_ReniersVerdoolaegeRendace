@@ -6,7 +6,9 @@ import model.Category;
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class CategoryTextDBStrategy extends TextDBStrategy {
 
     private File file;

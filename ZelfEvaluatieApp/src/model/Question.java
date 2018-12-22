@@ -2,16 +2,21 @@ package model;
 
 import java.util.Objects;
 
+/**
+ * @author Romano Rendace
+ */
 public abstract class Question implements Comparable<Question> {
 
     private String question;
     private Category category;
     private String feedback;
+    private boolean isCorrect;
 
     public Question(String question, Category category, String feedback) {
         this.question = question;
         this.category = category;
         this.feedback = feedback;
+        this.isCorrect = false;
     }
 
     public String getQuestion() {
@@ -26,6 +31,12 @@ public abstract class Question implements Comparable<Question> {
         return feedback;
     }
 
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
+    }
 
     @Override
     public int hashCode() {
