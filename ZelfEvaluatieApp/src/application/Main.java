@@ -122,7 +122,6 @@ public class Main extends Application {
 
         testController.setService(zelfEvaluatieService);
         testController.setTestPane(testPane);
-        testController.setMessagePane(messagePane);
         testController.setFeedbackPane(feedbackPane);
         testController.setResultPane(resultPane);
 

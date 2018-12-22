@@ -5,4 +5,4 @@ MultipleChoiceQuestion/Wat is de hoofdstad van Brazilië?/Aardrijkskunde;Landen 
 MultipleChoiceQuestion/In welk jaar viel de Berlijnse Muur?/Geschiedenis;Gebeurtenissen en hun jaartal;None/Het juiste antwoord is niet 1991/1989;1988;1987;1990;1991
 MultipleChoiceQuestion/Welke wiskunde is ontdekt door Isaac Newton?/Fysica;Natuurkundigen en hun grootste ontdekking;None/Het juiste antwoord is niet Statistiek/Calculus;Algebra;Meetkunde;Statistiek;Topologie
 MultipleChoiceQuestion/Welk organisme heeft de zwaarste hersenen?/Biologie;Dieren en planten;None/Het juiste antwoord is niet de mens./potvis;orca;mens;dolfijn;olifant
-MultipleChoiceQuestion/Welk nucleïnezuur komt niet voor in DNA ?/Biologie;Dieren en planten;None/Het juiste antwoord is niet uracil./uracil ;cytosine;guanine ;adenine;thymine 
+MultipleChoiceQuestion/Welk nucleïnezuur komt niet voor in DNA ?/Biologie;Dieren en planten;None/Het juiste antwoord is niet uracil./uracil ;cytosine;guanine ;adenine;thymine

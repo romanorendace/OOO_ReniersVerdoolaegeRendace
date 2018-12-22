@@ -6,19 +6,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.*;
 import view.panels.FeedbackPane;
-import view.panels.MessagePane;
 import view.panels.ResultPane;
 import view.panels.TestPane;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class TestController extends Controller implements Observer{
 
     private TestPane testPane;
     private FeedbackPane feedbackPane;
-    private MessagePane messagePane;
     private ResultPane resultPane;
 
     private Group root;
@@ -75,10 +72,6 @@ public class TestController extends Controller implements Observer{
 
     public void setTestPane(TestPane testPane) {
         this.testPane = testPane;
-    }
-
-    public void setMessagePane(MessagePane messagePane) {
-        this.messagePane = messagePane;
     }
 
     public void setFeedbackPane(FeedbackPane feedbackPane) {

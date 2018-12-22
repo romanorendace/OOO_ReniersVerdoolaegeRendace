@@ -67,9 +67,4 @@ public class QuestionController extends Controller {
         ObservableList<String> statementsObservableList = FXCollections.observableList(statements);
         questionDetailPane.updateStatementsInView(statementsObservableList);
     }
-
-    public void clearInputFields() {
-        questionDetailPane.clearInputFields();
-    }
-
 }

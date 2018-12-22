@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Objects;
 
 public class Category implements Comparable<Category>, Serializable {
@@ -28,15 +27,15 @@ public class Category implements Comparable<Category>, Serializable {
         return mainCategoryTitle;
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         this.description = description;
     }
 
-    public void setMainCategoryTitle(String mainCategoryTitle) {
+    private void setMainCategoryTitle(String mainCategoryTitle) {
         this.mainCategoryTitle = mainCategoryTitle;
     }
 

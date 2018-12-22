@@ -24,16 +24,10 @@ public class Pane {
         stage.sizeToScene();
     }
 
-    public Group getRoot() {
-        return root;
-    }
-    public void setRoot(Group root) {
-        this.root = root;
-    }
-
     public Scene getScene() {
         return scene;
     }
+
     public void setScene(Scene scene) {
         this.scene = scene;
     }
@@ -41,13 +35,7 @@ public class Pane {
     public Stage getStage() {
         return stage;
     }
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
-    public BorderPane getBorderPane() {
-        return borderPane;
-    }
     public void setBorderPane(BorderPane borderPane) {
 
         this.borderPane = borderPane;

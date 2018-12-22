@@ -3,7 +3,6 @@ package controller;
 import controller.requestHandler.RequestHandler;
 import controller.requestHandler.RequestHandlerFactory;
 import model.ZelfEvaluatieService;
-import view.panels.OptionsPane;
 
 public abstract class Controller {
 

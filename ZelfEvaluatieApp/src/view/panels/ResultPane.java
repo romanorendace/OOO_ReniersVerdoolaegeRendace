@@ -11,8 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.Observable;
-import model.Observer;
 
 public class ResultPane extends GridPane {
     Controller controller;
@@ -50,6 +48,7 @@ public class ResultPane extends GridPane {
     public void setAction(EventHandler<ActionEvent> retryAction) {
         retryButton.setOnAction(retryAction);
     }
+
     public void setCloseAction(EventHandler<ActionEvent> retryAction) {
         closeButton.setOnAction(retryAction);
     }

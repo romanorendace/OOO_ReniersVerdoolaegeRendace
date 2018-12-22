@@ -2,7 +2,6 @@ package view.panels;
 
 import controller.Controller;
 import db.CategoryDB;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +20,6 @@ public class QuestionDetailPane extends GridPane implements Observer {
     private Controller controller;
 
     private Button btnSave, btnCancel;
-    //private TextArea statementsArea;
     private ListView statementsArea;
     private TextField questionField, statementField, feedbackField;
     private Button btnAdd, btnRemove;

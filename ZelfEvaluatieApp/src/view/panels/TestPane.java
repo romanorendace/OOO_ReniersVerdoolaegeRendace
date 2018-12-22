@@ -44,10 +44,6 @@ public class TestPane extends GridPane implements Observer {
         this.controller = controller;
     }
 
-    public void setProcessAnswerAction(EventHandler<ActionEvent> processAnswerAction) {
-		submitButton.setOnAction(processAnswerAction);
-	}
-
 	public void setQuestionField(String question){
 		questionField=new Label(question);
 		add(questionField, 0, 0, 1, 1);
@@ -66,18 +62,6 @@ public class TestPane extends GridPane implements Observer {
 
 	public void setVerificationAction(EventHandler<ActionEvent> verifyQuestionAction) {
 		submitButton.setOnAction(verifyQuestionAction);
-	}
-
-	private void verifyQuestion() {
-		controller.handleRequest("verifyAnswer");
-	}
-
-	public List<String> getSelectedStatements() {
-		 List<String> selected = new ArrayList<String>();
-		if(statementGroup.getSelectedToggle()!=null){
-			selected.add(statementGroup.getSelectedToggle().getUserData().toString());
-		}
-		return selected;
 	}
 
 	public String getSelectedAnswer(){
