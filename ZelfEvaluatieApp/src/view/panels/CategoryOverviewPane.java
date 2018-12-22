@@ -17,7 +17,9 @@ import model.Category;
 import model.Observable;
 import model.Observer;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class CategoryOverviewPane extends GridPane implements Observer {
 
 	private Controller controller;

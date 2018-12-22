@@ -14,7 +14,9 @@ import model.*;
 
 import java.util.List;
 
-
+/**
+ * @author Romano Rendace
+ */
 public class QuestionDetailPane extends GridPane implements Observer {
 
     private Controller controller;

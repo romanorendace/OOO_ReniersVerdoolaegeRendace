@@ -13,6 +13,9 @@ import javafx.scene.layout.GridPane;
 import model.Observable;
 import model.Observer;
 
+/**
+ * @author Romano Rendace
+ */
 public class CategoryDetailPane extends GridPane implements Observer {
 
 
