@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 import model.ZelfEvaluatieService;
 import view.panels.*;
 
+/**
+ * @author Romano Rendace
+ */
 public class Main extends Application {
 
     private QuestionOverviewPane questionOverviewPane;
